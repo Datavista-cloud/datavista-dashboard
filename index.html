@@ -1116,14 +1116,6 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   </div>
 </section>
 
-<!-- ── DIVIDER ── -->
-<div class="section-divider">
-  <div class="divider-line">Para tu tipo de negocio</div>
-  <div style="font-family:'DM Mono',monospace;font-size:10px;color:#b0a898;letter-spacing:0.1em">
-    Ferretería · Mini Market · Disquería · Librería · Mayorista
-  </div>
-</div>
-
 <!-- ═══════════ DEMO INTERACTIVO ═══════════ -->
 <section id="demo-section" class="sec" style="background:var(--ink);overflow:hidden;">
   <!-- Glow bg -->
@@ -1158,23 +1150,20 @@ html, body { overflow-x: hidden; max-width: 100vw; }
     </div>
 
     <!-- Dashboard panel -->
-    <div style="background:#13151e;border:1px solid #2a2d35;border-radius:10px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.5);position:relative;">
+    <div style="background:#13151e;border:1px solid #2a2d35;border-radius:10px;overflow:visible;box-shadow:0 32px 80px rgba(0,0,0,0.5);position:relative;">
 
       <!-- BADGE INTERACTIVO -->
-      <div id="badge-interactivo" style="position:absolute;top:-13px;right:18px;z-index:10;display:flex;align-items:center;gap:6px;background:linear-gradient(90deg,#0a1f14,#0d2218);border:1px solid rgba(16,185,129,0.5);border-radius:99px;padding:5px 14px;cursor:pointer;box-shadow:0 4px 16px rgba(16,185,129,0.2);transition:transform .2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      <div id="badge-interactivo" style="position:absolute;top:12px;right:14px;z-index:10;display:flex;align-items:center;gap:6px;background:linear-gradient(90deg,#0a1f14,#0d2218);border:1px solid rgba(16,185,129,0.5);border-radius:99px;padding:5px 14px;cursor:pointer;box-shadow:0 4px 16px rgba(16,185,129,0.2);transition:transform .2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
         <div style="width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;animation:novPulse 1.2s ease-in-out infinite;flex-shrink:0;"></div>
         <span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#10b981;font-weight:500;white-space:nowrap;">Interactivo — pruébalo</span>
         <span style="font-size:11px;">👆</span>
       </div>
       <!-- Topbar -->
-      <div style="background:#1a1d2a;padding:10px 18px;border-bottom:1px solid #2a2d35;display:flex;align-items:center;justify-content:space-between;">
-        <div style="display:flex;align-items:center;gap:8px;">
+      <div style="background:#1a1d2a;padding:10px 180px 10px 18px;border-bottom:1px solid #2a2d35;display:flex;align-items:center;gap:8px;">
           <div style="width:8px;height:8px;border-radius:50%;background:#c8962a;"></div>
           <div style="width:8px;height:8px;border-radius:50%;background:#2a5c3f;"></div>
           <div style="width:8px;height:8px;border-radius:50%;background:#3a4c8e;"></div>
           <span style="font-family:var(--ff-mono);font-size:9px;color:#4a4d60;margin-left:8px;letter-spacing:0.1em;">Dashboard DataVista Interactivo</span>
-        </div>
-        <span style="font-family:var(--ff-mono);font-size:8px;color:#3a3d50;letter-spacing:0.1em;">13.924 productos</span>
       </div>
 
       <!-- Tab nav inside panel -->
@@ -1694,163 +1683,6 @@ function renderDemoTable() {
   </div>
 </section>
 
-<!-- ── FRANJA RUBROS ── -->
-<div class="franja" style="background:var(--ink);border-top:1px solid #1e2130;border-bottom:1px solid #1e2130;">
-  <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;">
-    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:#f0ece2;font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Ferreterías</span>
-    <span style="color:var(--gold);font-size:18px;opacity:0.5;"> · </span>
-    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:#f0ece2;font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Mini Markets</span>
-    <span style="color:var(--gold);font-size:18px;opacity:0.5;"> · </span>
-    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:var(--gold);font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Disquerías</span>
-    <span style="color:var(--gold);font-size:18px;opacity:0.5;"> · </span>
-    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:#f0ece2;font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Librerías</span>
-    <span style="color:var(--gold);font-size:18px;opacity:0.5;"> · </span>
-    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:#f0ece2;font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Mayoristas</span>
-  </div>
-  <div style="text-align:center;margin-top:8px;font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#3a3d50;">Si tienes más de 100 productos — esto es para ti</div>
-</div>
-
-<!-- ═══════════ RUBROS ═══════════ -->
-<section class="rubros-section">
-  <div class="section-header">
-    <div>
-      <div class="section-label">Adaptado a tu industria</div>
-      <h2 class="section-title">Un dashboard<br><em>para cada</em><br>tipo de negocio.</h2>
-    </div>
-    <p class="section-desc">
-      Cada rubro tiene sus propios indicadores clave. No es lo mismo gestionar stock de tornillos que de libros o bebidas. Por eso cada dashboard se configura con las variables que realmente importan para ti.
-    </p>
-  </div>
-
-  <div class="rubros-grid">
-    <div class="rubro-card">
-      <div class="rubro-icon-wrap">🔧</div>
-      <div class="rubro-name">Ferretería</div>
-      <ul class="rubro-features">
-        <li>Control de stock por SKU y familia</li>
-        <li>Análisis de rotación por ítem</li>
-        <li>Precio por proveedor y margen</li>
-        <li>Top productos más vendidos</li>
-      </ul>
-    </div>
-    <div class="rubro-card">
-      <div class="rubro-icon-wrap">🛒</div>
-      <div class="rubro-name">Mini Market</div>
-      <ul class="rubro-features">
-        <li>Categorías y subcategorías</li>
-        <li>Vencimientos y novedades</li>
-        <li>Precios por proveedor</li>
-        <li>Productos sin movimiento</li>
-      </ul>
-    </div>
-    <div class="rubro-card">
-      <div class="rubro-icon-wrap">🎵</div>
-      <div class="rubro-name">Disquería</div>
-      <ul class="rubro-features">
-        <li>Catálogo por género y formato</li>
-        <li>Novedades destacadas</li>
-        <li>Vista por artista y álbum</li>
-        <li>Precios y disponibilidad</li>
-      </ul>
-    </div>
-    <div class="rubro-card">
-      <div class="rubro-icon-wrap">📚</div>
-      <div class="rubro-name">Librería</div>
-      <ul class="rubro-features">
-        <li>Catálogo por autor y género</li>
-        <li>Stock por editorial</li>
-        <li>Novedades editoriales</li>
-        <li>Análisis de precio por formato</li>
-      </ul>
-    </div>
-    <div class="rubro-card" style="border-right:none">
-      <div class="rubro-icon-wrap">🏭</div>
-      <div class="rubro-name">Mayorista</div>
-      <ul class="rubro-features">
-        <li>Maestra de productos masiva</li>
-        <li>Segmentación por línea</li>
-        <li>Comparativa de precios</li>
-        <li>Exportación de lista filtrada</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ ANTES Y DESPUÉS ═══════════ -->
-<section class="sec" style="background:var(--ink);overflow:hidden;">
-  <div style="position:absolute;top:-80px;left:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(200,150,42,0.05) 0%,transparent 70%);pointer-events:none;"></div>
-
-  <div style="text-align:center;margin-bottom:48px;">
-    <div class="section-label" style="color:var(--gold);justify-content:center;margin-bottom:14px;">El cambio real</div>
-    <h2 style="font-family:var(--ff-display);font-size:clamp(32px,3.5vw,48px);font-weight:900;line-height:1.05;letter-spacing:-0.02em;color:#f0ece2;">La diferencia se ve<br><em style="color:var(--gold)">desde el primer día.</em></h2>
-  </div>
-
-  <div id="antesdespues-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:3px;max-width:860px;margin:0 auto;border-radius:10px;overflow:hidden;">
-
-    <!-- ANTES -->
-    <div style="background:#13151e;padding:36px 40px;border:1px solid #2a2d35;border-right:none;border-radius:10px 0 0 10px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;">✗</div>
-        <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#f43f5e;">Antes</span>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:16px;">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
-          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">Excel desactualizado con múltiples versiones sin control</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
-          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">No sabes cuánto stock real tienes ni qué está agotado</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
-          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">Pierdes tiempo buscando precios entre archivos</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
-          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">Vendes productos que ya no tienes en stock</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
-          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">Nadie sabe cuál archivo es el bueno ni cuál está actualizado</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- DESPUÉS -->
-    <div style="background:#0e1a14;padding:36px 40px;border:1px solid rgba(42,92,63,0.4);border-left:none;border-radius:0 10px 10px 0;position:relative;">
-      <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),#2a5c3f);"></div>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:rgba(56,184,122,0.15);border:1px solid rgba(56,184,122,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;">✓</div>
-        <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);">Con DataVista</span>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:16px;">
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
-          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Todo tu catálogo visible, filtrable y ordenado en un clic</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
-          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Stock actualizado cada vez que cargas tu Excel</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
-          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Precios ordenados por categoría con análisis instantáneo</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
-          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Exportable a CSV cuando quieras, con los filtros aplicados</span>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
-          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Un solo lugar. Siempre el mismo archivo. Siempre al día.</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
 <!-- ═══════════ QUÉ INCLUYE ═══════════ -->
 <section class="incluye-section">
   <div class="section-label" style="color:var(--gold)">¿Qué recibes?</div>
@@ -1886,13 +1718,6 @@ function renderDemoTable() {
         <div>
           <div class="feature-title">Personalización con tu marca</div>
           <div class="feature-desc">Nombre de tu empresa, colores corporativos y ajuste de las columnas según cómo tengas organizado tu Excel.</div>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">05</div>
-        <div>
-          <div class="feature-title">Soporte y ajustes post entrega</div>
-          <div class="feature-desc">Dos meses de soporte para ajustar columnas, agregar filtros o resolver dudas sobre el uso del dashboard.</div>
         </div>
       </div>
     </div>
@@ -2133,33 +1958,6 @@ function renderDemoTable() {
     </div>
   </div>
 
-  <!-- Servicios adicionales -->
-  <div style="margin-top:48px;">
-    <div class="section-label" style="font-size:9px;margin-bottom:8px;">Servicios adicionales</div>
-    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:24px;">¿Necesitas algo más? Estos servicios se cotizan por separado.</p>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
-      <div class="extra-card">
-        <div class="extra-tag">+$25.000</div>
-        <div class="extra-title">Actualización del DataVista</div>
-        <div class="extra-desc">Si cambias tu planilla de productos y el DataVista deja de leerla bien, lo ajustamos para que vuelva a funcionar perfecto.</div>
-      </div>
-      <div class="extra-card">
-        <div class="extra-tag">A cotizar</div>
-        <div class="extra-title">Sección extra a medida</div>
-        <div class="extra-desc">¿Quieres ver algo específico que no está en tu DataVista? Lo agregamos según lo que necesite tu negocio.</div>
-      </div>
-      <div class="extra-card">
-        <div class="extra-tag">+$20.000</div>
-        <div class="extra-title">Acompañamiento de uso</div>
-        <div class="extra-desc">Una llamada de 1 hora para que tú y tu equipo aprendan a usar el DataVista sin complicaciones.</div>
-      </div>
-      <div class="extra-card">
-        <div class="extra-tag">Incluido</div>
-        <div class="extra-title">Guía de uso en PDF</div>
-        <div class="extra-desc">Cada DataVista se entrega con una guía simple paso a paso: cómo cargar tu Excel, cómo filtrar y cómo descargar tu lista.</div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ═══════════ COMPARATIVA ═══════════ -->
