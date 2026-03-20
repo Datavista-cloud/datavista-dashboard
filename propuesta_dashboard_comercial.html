@@ -1,0 +1,2302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard DataVista Interactivo — Propuesta Comercial</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0c0d10;
+  --paper: #f5f2eb;
+  --paper2: #ece8df;
+  --cream: #faf8f3;
+  --gold: #c8962a;
+  --gold2: #e8b84b;
+  --rust: #c4441a;
+  --forest: #2a5c3f;
+  --navy: #1a2c4e;
+  --muted: #8a8070;
+  --line: #d4cfc4;
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-body: 'Syne', sans-serif;
+  --ff-mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ff-body);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content:'';
+  position: fixed; inset:0; z-index:0; pointer-events:none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.6;
+}
+
+/* ── LAYOUT ── */
+section { position:relative; z-index:1; }
+
+/* Clase utilitaria para secciones con padding estándar */
+.sec {
+  padding: 80px 64px;
+  position: relative;
+  z-index: 1;
+}
+.franja {
+  padding: 22px 64px;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--ink);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+.hero-left {
+  padding: 60px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #2a2d35;
+}
+
+.hero-tag {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-tag::before {
+  content:'';
+  width:24px; height:1px;
+  background: var(--gold);
+}
+
+/* Nombre del producto — protagonista */
+.hero-brand {
+  font-family: var(--ff-display);
+  font-size: clamp(22px, 2.8vw, 36px);
+  font-weight: 900;
+  color: #f0ece2;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 32px;
+}
+.hero-brand em {
+  font-style: italic;
+  color: var(--gold);
+  text-shadow: 0 0 40px rgba(200,150,42,0.35);
+}
+
+.hero-main { margin-top: auto; }
+
+.hero-eyebrow {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #5a5d70;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-family: var(--ff-display);
+  font-size: clamp(48px, 5.5vw, 80px);
+  font-weight: 900;
+  line-height: 0.95;
+  color: #f0ece2;
+  letter-spacing: -0.02em;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  margin-top: 28px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #6a6d7a;
+  max-width: 340px;
+}
+
+.hero-cta {
+  margin-top: 48px;
+  display: flex; align-items: center; gap: 20px;
+}
+
+.price-hero {
+  background: var(--gold);
+  color: var(--ink);
+  padding: 14px 28px;
+  border-radius: 4px;
+  display: flex; flex-direction: column;
+}
+.price-hero-val {
+  font-family: var(--ff-display);
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1;
+}
+.price-hero-lbl {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 3px;
+  opacity: 0.7;
+}
+
+.hero-note {
+  font-size: 11px;
+  color: #5a5d70;
+  line-height: 1.5;
+}
+
+.hero-bottom {
+  padding-top: 40px;
+  border-top: 1px solid #2a2d35;
+  display: flex; gap: 32px;
+}
+.hero-stat { display: flex; flex-direction: column; gap: 2px; }
+.hero-stat-val { font-family: var(--ff-display); font-size: 28px; color: #f0ece2; line-height: 1; }
+.hero-stat-lbl { font-family: var(--ff-mono); font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #5a5d70; }
+
+/* Hero right: visual */
+.hero-right {
+  background: #10121a;
+  display: flex; align-items: center; justify-content: center;
+  padding: 60px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-right::before {
+  content:'';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(200,150,42,0.12) 0%, transparent 70%);
+}
+
+.mock-dashboard {
+  width: 100%;
+  max-width: 460px;
+  background: #13151e;
+  border: 1px solid #2a2d35;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  transform: perspective(800px) rotateY(-6deg) rotateX(4deg);
+  transition: transform 0.4s ease;
+}
+.mock-dashboard:hover {
+  transform: perspective(800px) rotateY(-2deg) rotateX(2deg);
+}
+.mock-topbar {
+  background: #1a1d2a;
+  padding: 10px 16px;
+  display: flex; align-items: center; gap: 6px;
+  border-bottom: 1px solid #2a2d35;
+}
+.mock-dot { width:8px; height:8px; border-radius:50%; }
+.mock-title {
+  margin-left: 10px;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  color: #5a5d70;
+  letter-spacing: 0.1em;
+}
+.mock-body { padding: 16px; }
+.mock-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 12px; }
+.mock-kpi {
+  background: #1e2130;
+  border-radius: 5px; padding: 10px;
+  border-top: 2px solid var(--kpi-c, #c8962a);
+}
+.mock-kpi-val { font-family: var(--ff-display); font-size: 18px; color: var(--kpi-c, #c8962a); line-height: 1; }
+.mock-kpi-lbl { font-family: var(--ff-mono); font-size: 7px; color: #4a4d60; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
+.mock-chart { background: #1e2130; border-radius: 5px; padding: 12px; margin-bottom: 8px; }
+.mock-chart-title { font-family: var(--ff-mono); font-size: 8px; color: #5a5d70; letter-spacing: 0.1em; margin-bottom: 8px; }
+.mock-bars { display: flex; align-items: flex-end; gap: 5px; height: 55px; }
+.mock-bar {
+  flex: 1; border-radius: 2px 2px 0 0;
+  background: var(--bar-c, #c8962a);
+  opacity: 0.8;
+  animation: barGrow 1.2s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes barGrow { from { transform: scaleY(0); transform-origin: bottom; } }
+
+.mock-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mock-small { background: #1e2130; border-radius: 5px; padding: 10px; }
+.mock-small-title { font-family: var(--ff-mono); font-size: 7px; color: #5a5d70; letter-spacing: 0.1em; margin-bottom: 6px; }
+.mock-pill { display: inline-block; padding: 2px 7px; border-radius: 99px; font-family: var(--ff-mono); font-size: 7px; margin: 1px; }
+
+/* ── DIVIDER ── */
+.section-divider {
+  padding: 20px 64px;
+  background: var(--paper2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.divider-line {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex; align-items: center; gap: 16px;
+}
+.divider-line::after {
+  content:'';
+  width: 200px; height: 1px;
+  background: var(--line);
+}
+
+/* ── RUBROS ── */
+.rubros-section {
+  padding: 80px 64px;
+  background: var(--cream);
+}
+
+.section-header {
+  margin-bottom: 56px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end;
+}
+
+.section-label {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-label::before { content:''; width:20px; height:1px; background: var(--gold); }
+
+.section-title {
+  font-family: var(--ff-display);
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.section-title em { color: var(--gold); font-style: italic; }
+
+.section-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 400px;
+}
+
+/* RUBRO GRID */
+.rubros-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.rubro-card {
+  background: var(--paper);
+  padding: 32px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: default;
+  border-right: 1px solid var(--line);
+}
+.rubro-card:last-child { border-right: none; }
+.rubro-card:hover {
+  background: var(--ink);
+  transform: translateY(-4px);
+}
+.rubro-card:hover .rubro-name { color: var(--paper); }
+.rubro-card:hover .rubro-icon-wrap { background: var(--gold); }
+.rubro-card:hover .rubro-features li { color: #9a9d9f; }
+.rubro-card:hover .rubro-features li::before { background: var(--gold); }
+
+.rubro-icon-wrap {
+  width: 48px; height: 48px;
+  background: var(--paper2);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+  transition: background 0.3s;
+}
+
+.rubro-name {
+  font-family: var(--ff-display);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 14px;
+  transition: color 0.3s;
+}
+
+.rubro-features {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.rubro-features li {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex; align-items: flex-start; gap: 7px;
+  line-height: 1.4;
+  transition: color 0.3s;
+}
+.rubro-features li::before {
+  content:'';
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold);
+  margin-top: 4px; flex-shrink:0;
+  transition: background 0.3s;
+}
+
+/* ── QUÉ INCLUYE ── */
+.incluye-section {
+  padding: 80px 64px;
+  background: var(--ink);
+  color: #f0ece2;
+}
+
+.incluye-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  margin-top: 56px;
+}
+
+.feature-list { display: flex; flex-direction: column; gap: 28px; }
+
+.feature-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #2a2d35;
+}
+.feature-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.feature-num {
+  font-family: var(--ff-display);
+  font-size: 32px;
+  color: var(--gold);
+  line-height: 1;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.feature-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+  color: #e8e4d8;
+}
+.feature-desc { font-size: 12px; line-height: 1.6; color: #6a6d7a; }
+
+.incluye-right { display: flex; flex-direction: column; gap: 20px; }
+
+/* Tabs preview */
+.tabs-preview {
+  background: #13151e;
+  border: 1px solid #2a2d35;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.tabs-nav {
+  background: #1a1d2a;
+  display: flex; gap: 0;
+  border-bottom: 1px solid #2a2d35;
+  overflow-x: auto;
+}
+.tab-pill {
+  padding: 9px 16px;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5a5d70;
+  border-right: 1px solid #2a2d35;
+  white-space: nowrap;
+  transition: all 0.2s;
+  cursor: default;
+}
+.tab-pill.active { color: var(--gold); background: rgba(200,150,42,0.08); }
+
+.tabs-body { padding: 16px; }
+.mini-stat-row { display: flex; gap: 10px; margin-bottom: 12px; }
+.mini-stat {
+  flex: 1; background: #1e2130; border-radius: 4px; padding: 10px 12px;
+  border-bottom: 2px solid var(--mini-c, #c8962a);
+}
+.mini-stat-val { font-family: var(--ff-display); font-size: 20px; color: var(--mini-c, #c8962a); line-height: 1; }
+.mini-stat-lbl { font-family: var(--ff-mono); font-size: 7px; color: #4a4d60; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+
+.mini-table { width: 100%; border-collapse: collapse; }
+.mini-table th { font-family: var(--ff-mono); font-size: 7px; color: #4a4d60; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 8px; text-align: left; border-bottom: 1px solid #2a2d35; }
+.mini-table td { padding: 5px 8px; font-size: 9px; color: #7a7d8a; border-bottom: 1px solid rgba(42,45,53,0.4); }
+.mini-table td:first-child { color: #c8c4b8; }
+
+/* ── PRECIO ── */
+.precio-section {
+  padding: 80px 64px;
+  background: var(--paper);
+}
+
+.precio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 56px;
+  align-items: start;
+}
+
+.pricing-card {
+  background: var(--ink);
+  color: #f0ece2;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.pricing-card-top {
+  background: var(--gold);
+  padding: 32px 36px;
+  position: relative;
+}
+.pricing-card-top::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 40px;
+  background: var(--ink);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+.pricing-tag {
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(12,13,16,0.6);
+  margin-bottom: 10px;
+}
+.pricing-val {
+  font-family: var(--ff-display);
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+}
+.pricing-val sup { font-size: 24px; vertical-align: super; }
+.pricing-once {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: rgba(12,13,16,0.6);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.pricing-body { padding: 40px 36px 32px; }
+.pricing-includes {
+  list-style: none; display: flex; flex-direction: column; gap: 12px;
+}
+.pricing-includes li {
+  font-size: 13px; color: #9a9d9f; display: flex; align-items: center; gap: 10px;
+}
+.pricing-includes li span {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(200,150,42,0.15); color: var(--gold);
+  font-size: 10px; flex-shrink: 0; font-weight: 700;
+}
+.pricing-note {
+  margin-top: 24px;
+  padding: 14px 16px;
+  background: #1a1d2a;
+  border-radius: 5px;
+  border-left: 2px solid var(--gold);
+  font-size: 11px;
+  color: #6a6d7a;
+  line-height: 1.5;
+}
+
+.pricing-extras {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.extra-card {
+  background: var(--paper2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.extra-card:hover { border-color: var(--gold); }
+.extra-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold);
+}
+.extra-tag {
+  font-family: var(--ff-mono);
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.extra-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.extra-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* ── COMPARATIVA ── */
+.compare-section {
+  padding: 80px 64px;
+  background: var(--paper2);
+}
+
+.compare-table-wrap {
+  margin-top: 40px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--cream);
+}
+.compare-table {
+  width: 100%; border-collapse: collapse;
+}
+.compare-table th {
+  padding: 16px 20px;
+  font-family: var(--ff-mono);
+  font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.compare-table th:first-child { text-align: left; }
+.compare-table th.ours {
+  background: var(--ink); color: var(--gold);
+}
+.compare-table td {
+  padding: 14px 20px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  border-bottom: 1px solid rgba(212,207,196,0.5);
+}
+.compare-table td:first-child { text-align: left; color: var(--ink); font-weight: 500; font-size: 13px; }
+.compare-table td.ours { background: rgba(200,150,42,0.05); color: var(--gold); font-weight: 600; }
+.compare-table tbody tr:last-child td { border-bottom: none; }
+.check { color: var(--forest); font-size: 14px; }
+.cross { color: #c04a3a; font-size: 14px; }
+
+/* ── FOOTER CTA ── */
+.footer-cta {
+  padding: 80px 64px;
+  background: var(--ink);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+}
+.footer-cta-title {
+  font-family: var(--ff-display);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 900;
+  color: #f0ece2;
+  line-height: 1.1;
+}
+.footer-cta-title em { color: var(--gold); font-style: italic; }
+.footer-cta-sub { font-size: 13px; color: #6a6d7a; margin-top: 10px; line-height: 1.6; }
+
+.cta-box {
+  display: flex; flex-direction: column; gap: 12px;
+  align-items: flex-end;
+}
+.btn-primary {
+  background: var(--gold);
+  color: var(--ink);
+  padding: 14px 32px;
+  border: none; border-radius: 4px;
+  font-family: var(--ff-body);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--gold2); }
+.btn-ghost {
+  background: transparent;
+  color: #6a6d7a;
+  border: 1px solid #2a2d35;
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-family: var(--ff-body);
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: #5a5d70; color: #9a9d9f; }
+
+.footer-bar {
+  background: #080a0e;
+  padding: 20px 64px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-brand {
+  font-family: var(--ff-display);
+  font-size: 16px;
+  color: var(--gold);
+  font-weight: 900;
+  font-style: italic;
+}
+.footer-contact {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  color: #4a4d60;
+  letter-spacing: 0.1em;
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* ── ANIMACIONES ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+@keyframes barIn  { from{width:0 !important} }
+@keyframes novPulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.6);}}
+@keyframes flechaBounce{0%,100%{transform:translateX(0);}50%{transform:translateX(7px);}}
+.animate  { animation: fadeUp 0.7s ease both; }
+.delay1   { animation-delay: 0.1s; }
+.delay2   { animation-delay: 0.2s; }
+.delay3   { animation-delay: 0.3s; }
+.delay4   { animation-delay: 0.4s; }
+
+/* ══════════════════════════════════════
+   RESPONSIVE — sin overflow horizontal
+══════════════════════════════════════ */
+
+html, body { overflow-x: hidden; max-width: 100vw; }
+
+/* 1100px */
+@media(max-width:1100px) {
+  .rubros-grid { grid-template-columns: repeat(3,1fr); }
+  .sec { padding: 64px 40px; }
+  .franja { padding: 18px 40px; }
+}
+
+/* 900px — tablet */
+@media(max-width:900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 40px 24px; }
+  .hero-title { font-size: 44px; }
+  .hero-bottom { gap: 20px; }
+  header { padding-left: 24px; padding-right: 24px; flex-wrap: wrap; }
+  nav { padding-left: 16px; padding-right: 16px; }
+
+  .sec { padding: 56px 28px; }
+  .franja { padding: 18px 28px; }
+
+  .rubros-section, .incluye-section, .precio-section,
+  .compare-section, .footer-cta, .footer-bar {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  .section-header { grid-template-columns: 1fr; }
+  .rubros-grid { grid-template-columns: 1fr 1fr; }
+  .incluye-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .precio-grid { grid-template-columns: 1fr; }
+  .footer-cta { grid-template-columns: 1fr; }
+  .cta-box { align-items: stretch; }
+  .section-divider { display: none; }
+  #demo-section > div { grid-template-columns: 1fr !important; gap: 28px !important; }
+  #pasos-grid { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
+  #linea-conectora { display: none !important; }
+  #antesdespues-grid { grid-template-columns: 1fr !important; }
+  #antesdespues-grid > div:first-child { border-radius: 10px 10px 0 0 !important; border-right: 1px solid #2a2d35 !important; }
+  #antesdespues-grid > div:last-child { border-radius: 0 0 10px 10px !important; }
+}
+
+/* 600px — móvil */
+@media(max-width:600px) {
+
+  html, body { overflow-x: hidden; }
+
+  /* ── Padding universal: clases CSS ── */
+  .sec   { padding: 48px 18px !important; }
+  .franja { padding: 14px 18px !important; }
+
+  /* ── Padding universal: secciones con clase ── */
+  .rubros-section, .incluye-section, .precio-section,
+  .compare-section, .footer-cta, .footer-bar,
+  header, nav { padding-left: 18px !important; padding-right: 18px !important; }
+
+  /* Hero */
+  .hero-left { padding: 36px 18px !important; }
+  .hero-title { font-size: 32px; line-height: 1.05; }
+  .hero-sub { font-size: 13px; max-width: 100%; }
+  .hero-stat-val { font-size: 20px; }
+  .hero-bottom { flex-wrap: wrap; gap: 14px; }
+  .brand-title { font-size: 22px; letter-spacing: 1px; }
+  header { padding: 20px 18px !important; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .header-stats { gap: 14px; flex-wrap: wrap; }
+  .hstat-val { font-size: 20px; }
+  .reload-btn { font-size: 10px; }
+
+  /* Rubros */
+  .rubros-grid { grid-template-columns: 1fr !important; }
+  .rubro-card { padding: 20px 16px; }
+
+  /* 3 pasos */
+  #pasos-grid > div { padding: 0 8px !important; width: 100%; }
+
+  /* Demo interactivo */
+  #demo-section > div > div:first-child > div[style*="flex-direction:column"] {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  .demo-nav-btn { font-size: 11px; padding: 8px 10px; }
+  .panel-tab { font-size: 8px; padding: 7px 9px; }
+
+  /* Antes/Después */
+  #antesdespues-grid > div { padding: 24px 18px !important; }
+
+  /* Excel vs DataVista grid → stack en móvil */
+  div[style*="grid-template-columns:1fr auto 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  div[style*="grid-template-columns:1fr auto 1fr"] > div:nth-child(2) {
+    transform: rotate(90deg);
+    margin: -8px auto;
+  }
+
+  /* Qué incluyes — ocultar columna decorativa derecha en móvil */
+  #incluye-right-panel { display: none !important; }
+  .incluye-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .feature-list { width: 100%; }
+  .feature-item { grid-template-columns: 32px 1fr !important; gap: 12px !important; }
+  .feature-num { font-size: 22px; }
+
+  /* KPIs del demo → 2 columnas */
+  div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: 1fr 1fr !important; }
+  div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr 1fr !important; }
+
+  /* Tabla de planes */
+  div[style*="grid-template-columns:1.6fr 1fr 1fr"] {
+    display: flex !important; flex-direction: column !important; width: 100% !important;
+  }
+  div[style*="grid-template-columns:1.6fr 1fr 1fr"] > div {
+    border-left: none !important; border-top: 1px solid var(--line) !important; width: 100% !important;
+  }
+  div[style*="grid-template-columns:1.6fr 1fr 1fr"] > div:first-child { display: none !important; }
+  #plan-rows > div { display: flex !important; flex-direction: column !important; }
+  #plan-rows > div > div { border-left: none !important; text-align: left !important; }
+
+  /* Servicios adicionales */
+  div[style*="grid-template-columns:repeat(2,1fr)"] { grid-template-columns: 1fr !important; }
+  .extra-card { padding: 16px; }
+
+  /* Comparativa */
+  .compare-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .compare-table { min-width: 300px; font-size: 11px; }
+  .compare-table th, .compare-table td { padding: 9px 8px; }
+
+  /* FAQ */
+  .faq-item summary { font-size: 13px; padding: 16px 0; }
+  .faq-body { font-size: 12px; }
+
+  /* Footer CTA */
+  .footer-cta { padding-top: 48px !important; padding-bottom: 48px !important; gap: 24px !important; }
+  .footer-cta-title { font-size: 22px; }
+  .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 14px 12px; font-size: 12px; }
+  .cta-box { align-items: stretch; width: 100%; }
+  .footer-bar { flex-direction: column !important; gap: 8px; }
+  .footer-contact { text-align: center; }
+  .footer-brand { font-size: 13px; }
+
+  /* Anclaje de valor */
+  div[style*="margin-top:28px;padding:20px 28px"] {
+    flex-direction: column !important; padding: 16px !important;
+  }
+
+  /* Franja rubros — centrar en móvil */
+  .franja > div { justify-content: center !important; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════ PANTALLA DE BIENVENIDA ═══════════ -->
+<section id="bienvenida" style="min-height:100vh;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;position:relative;overflow:hidden;z-index:1;">
+
+  <!-- Fondo glow -->
+  <div style="position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(200,150,42,0.1) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(16,185,129,0.06) 0%,transparent 65%);pointer-events:none;"></div>
+
+  <!-- Contenido centrado -->
+  <div style="max-width:820px;width:100%;text-align:center;position:relative;z-index:1;">
+
+    <!-- Etiqueta -->
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,42,0.1);border:1px solid rgba(200,150,42,0.2);border-radius:99px;padding:5px 16px;font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:32px;">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block;"></span>
+      Para dueños de tienda · Sin tecnicismos
+    </div>
+
+    <!-- Dolor -->
+    <h1 style="font-family:var(--ff-display);font-size:clamp(32px,5vw,64px);font-weight:900;line-height:1;color:#f0ece2;letter-spacing:-0.02em;margin-bottom:20px;">
+      ¿Cuánto tiempo pierdes<br><em style="color:var(--gold)">buscando un precio</em><br>en tu lista de productos?
+    </h1>
+
+    <p style="font-size:14px;color:#6a6d7a;line-height:1.75;max-width:520px;margin:0 auto 44px;">
+      Si la respuesta es <span style="color:#f0ece2;font-weight:600;">"más de 30 segundos"</span> — o si no sabes al instante cuántos productos tienes, cuáles son los más caros o cuáles llegaron nuevos — esto es exactamente para ti.
+    </p>
+
+    <!-- Comparativa Excel → DataVista -->
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;margin-bottom:40px;">
+
+      <!-- Excel -->
+      <div style="background:#13151e;border:1px solid #2a2d35;border-radius:10px;padding:24px 20px;text-align:left;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <span style="font-size:26px;">📄</span>
+          <div>
+            <div style="font-family:var(--ff-mono);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:#5a5d70;margin-bottom:2px;">Tu Excel hoy</div>
+            <div style="font-size:13px;font-weight:700;color:#f0ece2;">Una lista interminable</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#6a6d7a;"><span style="color:#f43f5e;flex-shrink:0;margin-top:1px;">✗</span>Buscas fila por fila, perdiendo tiempo</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#6a6d7a;"><span style="color:#f43f5e;flex-shrink:0;margin-top:1px;">✗</span>No ves cuántos hay por categoría</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#6a6d7a;"><span style="color:#f43f5e;flex-shrink:0;margin-top:1px;">✗</span>Las novedades están mezcladas con todo</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#6a6d7a;"><span style="color:#f43f5e;flex-shrink:0;margin-top:1px;">✗</span>No ves nada de un solo vistazo</div>
+        </div>
+      </div>
+
+      <!-- Flecha -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <div style="font-size:28px;color:var(--gold);">→</div>
+        <div style="font-family:var(--ff-mono);font-size:7px;letter-spacing:0.15em;text-transform:uppercase;color:#3a3d50;text-align:center;line-height:1.7;">DataVista</div>
+      </div>
+
+      <!-- DataVista -->
+      <div style="background:#0e1a14;border:1px solid rgba(200,150,42,0.25);border-radius:10px;padding:24px 20px;text-align:left;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));"></div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <span style="font-size:26px;">📊</span>
+          <div>
+            <div style="font-family:var(--ff-mono);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,150,42,0.5);margin-bottom:2px;">Tu DataVista</div>
+            <div style="font-size:13px;font-weight:700;color:#f0ece2;">Tu catálogo con vida</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#9a9d8a;"><span style="color:var(--gold);flex-shrink:0;margin-top:1px;">✓</span>Buscas cualquier producto en segundos</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#9a9d8a;"><span style="color:var(--gold);flex-shrink:0;margin-top:1px;">✓</span>Ves cuántos hay por categoría al instante</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#9a9d8a;"><span style="color:var(--gold);flex-shrink:0;margin-top:1px;">✓</span>Las novedades aparecen destacadas en verde</div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#9a9d8a;"><span style="color:var(--gold);flex-shrink:0;margin-top:1px;">✓</span>Todo de un vistazo, sin buscar nada</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analogía de cierre -->
+    <div style="background:rgba(200,150,42,0.06);border:1px solid rgba(200,150,42,0.2);border-radius:8px;padding:20px 28px;margin-bottom:40px;text-align:left;display:flex;align-items:flex-start;gap:16px;">
+      <span style="font-size:24px;flex-shrink:0;">💡</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#f0ece2;margin-bottom:5px;">En palabras simples:</div>
+        <div style="font-size:13px;color:#7a7d8a;line-height:1.7;">
+          Un <strong style="color:#f0ece2;">DataVista</strong> es como tu Excel — pero que <strong style="color:var(--gold);">se lee solo, te muestra gráficos al instante y te deja buscar cualquier producto en segundos.</strong> Sin aprender nada nuevo. Sin instalar nada. Abres el archivo y listo.
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA hacia la propuesta -->
+    <a href="#hero-inicio" onclick="document.getElementById('hero-inicio').scrollIntoView({behavior:'smooth'});return false;" style="display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);padding:14px 32px;border-radius:5px;font-family:var(--ff-body);font-size:14px;font-weight:700;text-decoration:none;letter-spacing:0.03em;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+      Ver cómo funciona &nbsp;↓
+    </a>
+
+    <div style="margin-top:16px;font-family:var(--ff-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:#3a3d50;">
+      Propuesta completa · Solo toma 2 minutos
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="hero-inicio">
+  <div class="hero-left">
+    <div class="hero-brand animate" style="margin-bottom:0;">
+      <img src="data:image/webp;base64,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" width="280" height="109" alt="DataVista · Dashboards Interactivos" style="max-width:100%;height:auto;display:block;">
+    </div>
+
+    <div class="hero-main">
+      <h1 class="hero-title animate delay1">
+        Tu negocio,<br>
+        <em>en datos</em><br>
+        que hablan.
+      </h1>
+      <p class="hero-sub animate delay2">
+        Un Dashboard DataVista Interactivo diseñado a medida para tu tipo de negocio.
+        Tome decisiones informadas desde el primer día — sin suscripciones,
+        sin complicaciones.
+      </p>
+      <div class="hero-cta animate delay3">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+            <span style="font-size:13px;color:#9a9d8a;">Sin suscripciones ni servidores</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+            <span style="font-size:13px;color:#9a9d8a;">Configurado para su propio Excel</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+            <span style="font-size:13px;color:#9a9d8a;">Listo en 5 a 7 días hábiles</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
+            <span style="font-size:13px;color:#9a9d8a;">Pago único — sin renovaciones</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-bottom animate delay4">
+      <div class="hero-stat">
+        <span class="hero-stat-val">100%</span>
+        <span class="hero-stat-lbl">Sin suscripción</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">5</span>
+        <span class="hero-stat-lbl">Rubros activos</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">∞</span>
+        <span class="hero-stat-lbl">Uso sin límite</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mock Dashboard RICO -->
+  <div class="hero-right">
+    <div class="mock-dashboard">
+      <!-- Topbar -->
+      <div class="mock-topbar">
+        <div class="mock-dot" style="background:#c8962a"></div>
+        <div class="mock-dot" style="background:#2a5c3f"></div>
+        <div class="mock-dot" style="background:#3a4c8e"></div>
+        <span class="mock-title">DataVista Interactivo · 13.924 productos</span>
+      </div>
+      <!-- Tab nav -->
+      <div style="background:#10121a;display:flex;border-bottom:1px solid #2a2d35;overflow-x:auto;">
+        <div style="padding:6px 13px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#c8962a;background:rgba(200,150,42,.06);border-right:1px solid #2a2d35;white-space:nowrap;">Géneros</div>
+        <div style="padding:6px 13px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#3a3d50;border-right:1px solid #2a2d35;white-space:nowrap;">Formatos</div>
+        <div style="padding:6px 13px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#3a3d50;border-right:1px solid #2a2d35;white-space:nowrap;">Precios</div>
+        <div style="padding:6px 13px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#3a3d50;border-right:1px solid #2a2d35;white-space:nowrap;">Catálogo</div>
+        <div style="padding:6px 13px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#10b981;white-space:nowrap;">✦ Novedades</div>
+      </div>
+      <div class="mock-body">
+        <!-- KPIs 4 columnas -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px;">
+          <div style="background:#1e2130;border-radius:5px;padding:9px 7px;border-top:2px solid #c8962a;">
+            <div id="hm1" style="font-family:'Playfair Display',serif;font-size:17px;color:#c8962a;line-height:1;">0</div>
+            <div style="font-family:'DM Mono',monospace;font-size:6px;color:#3a3d50;text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Anglo</div>
+          </div>
+          <div style="background:#1e2130;border-radius:5px;padding:9px 7px;border-top:2px solid #3b82f6;">
+            <div id="hm2" style="font-family:'Playfair Display',serif;font-size:17px;color:#3b82f6;line-height:1;">0</div>
+            <div style="font-family:'DM Mono',monospace;font-size:6px;color:#3a3d50;text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Latino</div>
+          </div>
+          <div style="background:#1e2130;border-radius:5px;padding:9px 7px;border-top:2px solid #10b981;">
+            <div id="hm3" style="font-family:'Playfair Display',serif;font-size:17px;color:#10b981;line-height:1;">0</div>
+            <div style="font-family:'DM Mono',monospace;font-size:6px;color:#3a3d50;text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Clásico</div>
+          </div>
+          <div style="background:#1e2130;border-radius:5px;padding:9px 7px;border-top:2px solid #8b5cf6;">
+            <div id="hm4" style="font-family:'Playfair Display',serif;font-size:17px;color:#8b5cf6;line-height:1;">0</div>
+            <div style="font-family:'DM Mono',monospace;font-size:6px;color:#3a3d50;text-transform:uppercase;letter-spacing:.08em;margin-top:2px;">Jazz</div>
+          </div>
+        </div>
+        <!-- Chart row: barras + donut -->
+        <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:8px;margin-bottom:8px;">
+          <!-- Barras horizontales -->
+          <div style="background:#1e2130;border-radius:5px;padding:9px;">
+            <div style="font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;">Distribución</div>
+            <div style="display:flex;flex-direction:column;gap:5px;">
+              <div style="display:flex;align-items:center;gap:5px;"><span style="font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;width:36px;flex-shrink:0;">Anglo</span><div style="flex:1;height:4px;background:#252535;border-radius:2px;overflow:hidden;"><div style="height:100%;width:100%;background:#c8962a;border-radius:2px;animation:barIn 1s cubic-bezier(.16,1,.3,1) .1s both;"></div></div><span style="font-family:'DM Mono',monospace;font-size:7px;color:#4a4d60;width:28px;text-align:right;">4.820</span></div>
+              <div style="display:flex;align-items:center;gap:5px;"><span style="font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;width:36px;flex-shrink:0;">Latino</span><div style="flex:1;height:4px;background:#252535;border-radius:2px;overflow:hidden;"><div style="height:100%;width:66%;background:#3b82f6;border-radius:2px;animation:barIn 1s cubic-bezier(.16,1,.3,1) .2s both;"></div></div><span style="font-family:'DM Mono',monospace;font-size:7px;color:#4a4d60;width:28px;text-align:right;">3.210</span></div>
+              <div style="display:flex;align-items:center;gap:5px;"><span style="font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;width:36px;flex-shrink:0;">Clásico</span><div style="flex:1;height:4px;background:#252535;border-radius:2px;overflow:hidden;"><div style="height:100%;width:29%;background:#10b981;border-radius:2px;animation:barIn 1s cubic-bezier(.16,1,.3,1) .3s both;"></div></div><span style="font-family:'DM Mono',monospace;font-size:7px;color:#4a4d60;width:28px;text-align:right;">1.405</span></div>
+              <div style="display:flex;align-items:center;gap:5px;"><span style="font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;width:36px;flex-shrink:0;">Jazz</span><div style="flex:1;height:4px;background:#252535;border-radius:2px;overflow:hidden;"><div style="height:100%;width:18%;background:#8b5cf6;border-radius:2px;animation:barIn 1s cubic-bezier(.16,1,.3,1) .4s both;"></div></div><span style="font-family:'DM Mono',monospace;font-size:7px;color:#4a4d60;width:28px;text-align:right;">890</span></div>
+              <div style="display:flex;align-items:center;gap:5px;"><span style="font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;width:36px;flex-shrink:0;">Otros</span><div style="flex:1;height:4px;background:#252535;border-radius:2px;overflow:hidden;"><div style="height:100%;width:33%;background:#3a3d50;border-radius:2px;animation:barIn 1s cubic-bezier(.16,1,.3,1) .5s both;"></div></div><span style="font-family:'DM Mono',monospace;font-size:7px;color:#4a4d60;width:28px;text-align:right;">1.599</span></div>
+            </div>
+          </div>
+          <!-- Donut CSS -->
+          <div style="background:#1e2130;border-radius:5px;padding:9px;display:flex;flex-direction:column;align-items:center;">
+            <div style="font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;align-self:flex-start;">Formatos</div>
+            <div style="width:64px;height:64px;border-radius:50%;background:conic-gradient(#c8962a 0% 34%,#3b82f6 34% 57%,#f43f5e 57% 71%,#252535 71% 100%);position:relative;">
+              <div style="position:absolute;inset:12px;background:#1e2130;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:12px;color:#c8962a;">64%</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px;margin-top:5px;align-self:flex-start;">
+              <div style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;"><div style="width:5px;height:5px;border-radius:50%;background:#c8962a;flex-shrink:0;"></div>CD 64%</div>
+              <div style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;"><div style="width:5px;height:5px;border-radius:50%;background:#3b82f6;flex-shrink:0;"></div>Vinilo 23%</div>
+              <div style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:#5a5d70;"><div style="width:5px;height:5px;border-radius:50%;background:#f43f5e;flex-shrink:0;"></div>DVD 13%</div>
+            </div>
+          </div>
+        </div>
+        <!-- Novedades badge -->
+        <div style="background:linear-gradient(90deg,rgba(16,185,129,.08),transparent);border:1px solid rgba(16,185,129,.2);border-radius:4px;padding:6px 9px;display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
+          <div style="display:flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-size:7px;color:#10b981;letter-spacing:.08em;">
+            <div id="hm-ndot" style="width:5px;height:5px;border-radius:50%;background:#10b981;animation:novPulse 1.5s ease-in-out infinite;"></div>
+            Novedades
+          </div>
+          <div id="hm-nov" style="font-family:'Playfair Display',serif;font-size:18px;color:#10b981;line-height:1;">0</div>
+        </div>
+        <!-- Mini tabla -->
+        <table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid #2a2d35;">
+              <th style="text-align:left;padding:4px 6px;font-family:'DM Mono',monospace;font-size:6px;color:#3a3d50;letter-spacing:.1em;text-transform:uppercase;">Artista</th>
+              <th style="text-align:left;padding:4px 6px;font-family:'DM Mono',monospace;font-size:6px;color:#3a3d50;letter-spacing:.1em;text-transform:uppercase;">Título</th>
+              <th style="text-align:left;padding:4px 6px;font-family:'DM Mono',monospace;font-size:6px;color:#3a3d50;letter-spacing:.1em;text-transform:uppercase;">Fmt</th>
+              <th style="text-align:right;padding:4px 6px;font-family:'DM Mono',monospace;font-size:6px;color:#3a3d50;letter-spacing:.1em;text-transform:uppercase;">Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(42,45,53,.4);border-left:2px solid #10b981;">
+              <td style="padding:4px 6px;font-size:8px;color:#c8c4b8;font-weight:500;">Kendrick Lamar</td>
+              <td style="padding:4px 6px;font-size:8px;color:#6a6d7a;">GNX</td>
+              <td style="padding:4px 6px;"><span style="background:rgba(200,150,42,.15);color:#c8962a;padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace;font-size:7px;">Vinilo</span></td>
+              <td style="padding:4px 6px;text-align:right;font-family:'Playfair Display',serif;font-size:11px;color:#10b981;">$34.990</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(42,45,53,.4);">
+              <td style="padding:4px 6px;font-size:8px;color:#c8c4b8;font-weight:500;">Soda Stereo</td>
+              <td style="padding:4px 6px;font-size:8px;color:#6a6d7a;">Nada Personal</td>
+              <td style="padding:4px 6px;"><span style="background:rgba(200,150,42,.15);color:#c8962a;padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace;font-size:7px;">Vinilo</span></td>
+              <td style="padding:4px 6px;text-align:right;font-family:'Playfair Display',serif;font-size:11px;color:#c8962a;">$28.990</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(42,45,53,.4);border-left:2px solid #10b981;">
+              <td style="padding:4px 6px;font-size:8px;color:#c8c4b8;font-weight:500;">Bad Bunny</td>
+              <td style="padding:4px 6px;font-size:8px;color:#6a6d7a;">DeBÍ TiRAR MáS FOToS</td>
+              <td style="padding:4px 6px;"><span style="background:rgba(59,130,246,.15);color:#3b82f6;padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace;font-size:7px;">CD</span></td>
+              <td style="padding:4px 6px;text-align:right;font-family:'Playfair Display',serif;font-size:11px;color:#10b981;">$12.990</td>
+            </tr>
+            <tr>
+              <td style="padding:4px 6px;font-size:8px;color:#c8c4b8;font-weight:500;">Charly García</td>
+              <td style="padding:4px 6px;font-size:8px;color:#6a6d7a;">Clics Modernos</td>
+              <td style="padding:4px 6px;"><span style="background:rgba(200,150,42,.15);color:#c8962a;padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace;font-size:7px;">Vinilo</span></td>
+              <td style="padding:4px 6px;text-align:right;font-family:'Playfair Display',serif;font-size:11px;color:#c8962a;">$31.990</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIVIDER ── -->
+<div class="section-divider">
+  <div class="divider-line">Para tu tipo de negocio</div>
+  <div style="font-family:'DM Mono',monospace;font-size:10px;color:#b0a898;letter-spacing:0.1em">
+    Ferretería · Mini Market · Disquería · Librería · Mayorista
+  </div>
+</div>
+
+<!-- ═══════════ DEMO INTERACTIVO ═══════════ -->
+<section id="demo-section" class="sec" style="background:var(--ink);overflow:hidden;">
+  <!-- Glow bg -->
+  <div style="position:absolute;top:-120px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(200,150,42,0.08) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 2fr;gap:56px;align-items:start;">
+    <div>
+      <div class="section-label" style="color:var(--gold)">DataVista en vivo</div>
+      <h2 style="font-family:var(--ff-display);font-size:clamp(28px,3vw,44px);font-weight:900;color:#f0ece2;line-height:1.05;letter-spacing:-0.02em;margin-top:14px;">
+        Así se ve tu<br><em style="color:var(--gold)">DataVista</em><br>en acción.
+      </h2>
+      <p style="font-size:13px;color:#5a5d70;line-height:1.7;margin-top:20px;">
+        Datos reales de un catálogo de más de 13.000 productos. Explora, filtra y navega entre secciones — esto es exactamente lo que recibirías adaptado a tu negocio.
+      </p>
+      <div style="margin-top:28px;display:flex;flex-direction:column;gap:10px;">
+        <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">Navegue por las pestañas →</div>
+        <button onclick="demoTab('generos')" id="dtab-generos" class="demo-nav-btn demo-nav-active">🎼 Géneros</button>
+        <button onclick="demoTab('formatos')" id="dtab-formatos" class="demo-nav-btn">💿 Formatos</button>
+        <button onclick="demoTab('precios')" id="dtab-precios" class="demo-nav-btn">💰 Precios</button>
+        <button onclick="demoTab('catalogo')" id="dtab-catalogo" class="demo-nav-btn">📋 Catálogo</button>
+        <button onclick="demoTab('novedades')" id="dtab-novedades" class="demo-nav-btn demo-nav-nov">✦ Novedades</button>
+      </div>
+
+      <!-- FLECHA ANIMADA -->
+      <div id="flecha-demo" style="display:flex;align-items:center;gap:10px;margin-top:28px;padding:12px 16px;background:rgba(200,150,42,0.06);border:1px solid rgba(200,150,42,0.15);border-radius:8px;">
+        <div style="font-family:var(--ff-display);font-size:26px;color:var(--gold);font-style:italic;animation:flechaBounce 1s ease-in-out infinite;display:inline-block;">→</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#f0ece2;line-height:1.2;">Tócalo, es real</div>
+          <div style="font-family:var(--ff-mono);font-size:9px;color:#5a5d70;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">Filtra · Busca · Navega</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard panel -->
+    <div style="background:#13151e;border:1px solid #2a2d35;border-radius:10px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.5);position:relative;">
+
+      <!-- BADGE INTERACTIVO -->
+      <div id="badge-interactivo" style="position:absolute;top:-13px;right:18px;z-index:10;display:flex;align-items:center;gap:6px;background:linear-gradient(90deg,#0a1f14,#0d2218);border:1px solid rgba(16,185,129,0.5);border-radius:99px;padding:5px 14px;cursor:pointer;box-shadow:0 4px 16px rgba(16,185,129,0.2);transition:transform .2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;animation:novPulse 1.2s ease-in-out infinite;flex-shrink:0;"></div>
+        <span style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#10b981;font-weight:500;white-space:nowrap;">Interactivo — pruébalo</span>
+        <span style="font-size:11px;">👆</span>
+      </div>
+      <!-- Topbar -->
+      <div style="background:#1a1d2a;padding:10px 18px;border-bottom:1px solid #2a2d35;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#c8962a;"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:#2a5c3f;"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:#3a4c8e;"></div>
+          <span style="font-family:var(--ff-mono);font-size:9px;color:#4a4d60;margin-left:8px;letter-spacing:0.1em;">Dashboard DataVista Interactivo</span>
+        </div>
+        <span style="font-family:var(--ff-mono);font-size:8px;color:#3a3d50;letter-spacing:0.1em;">13.924 productos</span>
+      </div>
+
+      <!-- Tab nav inside panel -->
+      <div style="background:#10121a;border-bottom:1px solid #2a2d35;display:flex;overflow-x:auto;">
+        <div id="ptab-generos" class="panel-tab panel-tab-active" onclick="demoTab('generos')">Géneros</div>
+        <div id="ptab-formatos" class="panel-tab" onclick="demoTab('formatos')">Formatos</div>
+        <div id="ptab-precios" class="panel-tab" onclick="demoTab('precios')">Precios</div>
+        <div id="ptab-catalogo" class="panel-tab" onclick="demoTab('catalogo')">Catálogo</div>
+        <div id="ptab-novedades" class="panel-tab panel-tab-nov" onclick="demoTab('novedades')">✦ Novedades</div>
+      </div>
+
+      <!-- Panels -->
+      <div style="padding:20px;">
+
+        <!-- GÉNEROS -->
+        <div id="panel-generos" class="demo-panel">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;">
+            <div style="background:#1e2130;border-radius:6px;padding:12px;border-top:2px solid #c8962a;">
+              <div id="kpi-anglo" style="font-family:var(--ff-display);font-size:22px;color:#c8962a;line-height:1;">0</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">4.820 prod.</div>
+            </div>
+            <div style="background:#1e2130;border-radius:6px;padding:12px;border-top:2px solid #3b82f6;">
+              <div id="kpi-latino" style="font-family:var(--ff-display);font-size:22px;color:#3b82f6;line-height:1;">0</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">3.210 prod.</div>
+            </div>
+            <div style="background:#1e2130;border-radius:6px;padding:12px;border-top:2px solid #10b981;">
+              <div id="kpi-clasico" style="font-family:var(--ff-display);font-size:22px;color:#10b981;line-height:1;">0</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">1.405 prod.</div>
+            </div>
+            <div style="background:#1e2130;border-radius:6px;padding:12px;border-top:2px solid #8b5cf6;">
+              <div id="kpi-jazz" style="font-family:var(--ff-display);font-size:22px;color:#8b5cf6;line-height:1;">0</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">890 prod.</div>
+            </div>
+          </div>
+          <div style="background:#1e2130;border-radius:6px;padding:14px;">
+            <div style="font-family:var(--ff-mono);font-size:8px;color:#5a5d70;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">Distribución por género</div>
+            <div id="bars-generos" style="display:flex;flex-direction:column;gap:8px;"></div>
+          </div>
+        </div>
+
+        <!-- FORMATOS -->
+        <div id="panel-formatos" class="demo-panel" style="display:none">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+            <div style="background:#1e2130;border-radius:6px;padding:14px;border-top:2px solid #3b82f6;">
+              <div style="font-family:var(--ff-display);font-size:26px;color:#3b82f6;line-height:1;">CD</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">8.940 · 64%</div>
+            </div>
+            <div style="background:#1e2130;border-radius:6px;padding:14px;border-top:2px solid #c8962a;">
+              <div style="font-family:var(--ff-display);font-size:26px;color:#c8962a;line-height:1;">Vinilo</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">3.120 · 22%</div>
+            </div>
+            <div style="background:#1e2130;border-radius:6px;padding:14px;border-top:2px solid #f43f5e;">
+              <div style="font-family:var(--ff-display);font-size:26px;color:#f43f5e;line-height:1;">DVD</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">1.864 · 14%</div>
+            </div>
+          </div>
+          <div style="background:#1e2130;border-radius:6px;padding:14px;">
+            <div style="font-family:var(--ff-mono);font-size:8px;color:#5a5d70;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">Productos por formato</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-family:var(--ff-mono);font-size:9px;color:#7a7d8a;margin-bottom:4px;"><span>CD</span><span>8.940</span></div>
+                <div style="height:5px;background:#252535;border-radius:3px;overflow:hidden;"><div style="height:100%;width:64%;background:#3b82f6;border-radius:3px;transition:width 0.8s ease;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-family:var(--ff-mono);font-size:9px;color:#7a7d8a;margin-bottom:4px;"><span>Vinilo</span><span>3.120</span></div>
+                <div style="height:5px;background:#252535;border-radius:3px;overflow:hidden;"><div style="height:100%;width:22%;background:#c8962a;border-radius:3px;transition:width 0.8s ease;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-family:var(--ff-mono);font-size:9px;color:#7a7d8a;margin-bottom:4px;"><span>DVD</span><span>1.864</span></div>
+                <div style="height:5px;background:#252535;border-radius:3px;overflow:hidden;"><div style="height:100%;width:14%;background:#f43f5e;border-radius:3px;transition:width 0.8s ease;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRECIOS -->
+        <div id="panel-precios" class="demo-panel" style="display:none">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;">
+            <div style="background:#1e2130;border-radius:6px;padding:12px;border-top:2px solid #c8962a;">
+              <div style="font-family:var(--ff-display);font-size:18px;color:#c8962a;line-height:1;">$9.090</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">Promedio</div>
+            </div>
+            <div style="background:#1e2130;border-radius:6px;padding:12px;border-top:2px solid #06b6d4;">
+              <div style="font-family:var(--ff-display);font-size:18px;color:#06b6d4;line-height:1;">$7.490</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">Mediana</div>
+            </div>
+            <div style="background:#1e2130;border-radius:6px;padding:12px;border-top:2px solid #f43f5e;">
+              <div style="font-family:var(--ff-display);font-size:18px;color:#f43f5e;line-height:1;">$89.900</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">Máximo</div>
+            </div>
+            <div style="background:#1e2130;border-radius:6px;padding:12px;border-top:2px solid #10b981;">
+              <div style="font-family:var(--ff-display);font-size:18px;color:#10b981;line-height:1;">$990</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">Mínimo</div>
+            </div>
+          </div>
+          <div style="background:#1e2130;border-radius:6px;padding:14px;">
+            <div style="font-family:var(--ff-mono);font-size:8px;color:#5a5d70;letter-spacing:0.1em;margin-bottom:12px;text-transform:uppercase;">Rangos de precio</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+              <div style="background:#252535;border-radius:4px;padding:10px;">
+                <div style="font-family:var(--ff-mono);font-size:8px;color:#5a5d70;text-transform:uppercase;letter-spacing:0.08em;">$0–5k</div>
+                <div style="font-family:var(--ff-display);font-size:20px;color:#c8962a;">3.840</div>
+                <div style="font-family:var(--ff-mono);font-size:8px;color:#4a4d60;">27,6%</div>
+              </div>
+              <div style="background:#252535;border-radius:4px;padding:10px;">
+                <div style="font-family:var(--ff-mono);font-size:8px;color:#5a5d70;text-transform:uppercase;letter-spacing:0.08em;">$5k–15k</div>
+                <div style="font-family:var(--ff-display);font-size:20px;color:#3b82f6;">5.920</div>
+                <div style="font-family:var(--ff-mono);font-size:8px;color:#4a4d60;">42,5%</div>
+              </div>
+              <div style="background:#252535;border-radius:4px;padding:10px;">
+                <div style="font-family:var(--ff-mono);font-size:8px;color:#5a5d70;text-transform:uppercase;letter-spacing:0.08em;">+$15k</div>
+                <div style="font-family:var(--ff-display);font-size:20px;color:#10b981;">4.164</div>
+                <div style="font-family:var(--ff-mono);font-size:8px;color:#4a4d60;">29,9%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATÁLOGO -->
+        <div id="panel-catalogo" class="demo-panel" style="display:none">
+          <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;position:relative;">
+            <div id="demo-tooltip" style="position:absolute;top:-32px;left:0;background:var(--gold);color:var(--ink);font-family:var(--ff-mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;border-radius:4px;opacity:0;transition:opacity 0.4s;pointer-events:none;white-space:nowrap;">✦ Prueba el buscador</div>
+            <input id="demo-search" type="text" placeholder="Buscar artista o título..." oninput="demoSearch()" style="flex:1;min-width:160px;background:#1e2130;border:1px solid #2a2d35;border-radius:5px;color:#c8c4b8;padding:7px 12px;font-family:var(--ff-mono);font-size:10px;outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='#c8962a'" onblur="this.style.borderColor='#2a2d35'">
+            <select id="demo-format" onchange="demoSearch()" style="background:#1e2130;border:1px solid #2a2d35;border-radius:5px;color:#7a7d8a;padding:7px 10px;font-family:var(--ff-mono);font-size:10px;outline:none;cursor:pointer;">
+              <option value="">Todos los formatos</option>
+              <option value="CD">CD</option>
+              <option value="Vinilo">Vinilo</option>
+              <option value="DVD">DVD</option>
+            </select>
+          </div>
+          <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;font-size:10px;">
+              <thead>
+                <tr style="border-bottom:1px solid #2a2d35;">
+                  <th style="text-align:left;padding:6px 8px;font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.12em;text-transform:uppercase;">Artista</th>
+                  <th style="text-align:left;padding:6px 8px;font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.12em;text-transform:uppercase;">Título</th>
+                  <th style="text-align:left;padding:6px 8px;font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.12em;text-transform:uppercase;">Género</th>
+                  <th style="text-align:left;padding:6px 8px;font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.12em;text-transform:uppercase;">Formato</th>
+                  <th style="text-align:right;padding:6px 8px;font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.12em;text-transform:uppercase;">Precio</th>
+                </tr>
+              </thead>
+              <tbody id="demo-table-body"></tbody>
+            </table>
+          </div>
+          <div style="margin-top:10px;font-family:var(--ff-mono);font-size:8px;color:#4a4d60;text-align:right;" id="demo-count"></div>
+        </div>
+
+        <!-- NOVEDADES -->
+        <div id="panel-novedades" class="demo-panel" style="display:none">
+          <!-- KPI principal -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+            <div style="background:linear-gradient(135deg,#0e1a14,#0d1f10);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:14px;text-align:center;position:relative;overflow:hidden;">
+              <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10b981,#34d399);"></div>
+              <div id="kpi-nov-total" style="font-family:var(--ff-display);font-size:32px;font-weight:900;color:#10b981;line-height:1;">0</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#2a5c3f;letter-spacing:0.12em;text-transform:uppercase;margin-top:4px;">Novedades</div>
+            </div>
+            <div style="background:#1e2130;border-radius:8px;padding:14px;border-top:2px solid #3b82f6;text-align:center;">
+              <div style="font-family:var(--ff-display);font-size:26px;color:#3b82f6;line-height:1;">842</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">En CD</div>
+            </div>
+            <div style="background:#1e2130;border-radius:8px;padding:14px;border-top:2px solid #c8962a;text-align:center;">
+              <div style="font-family:var(--ff-display);font-size:26px;color:#c8962a;line-height:1;">563</div>
+              <div style="font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;">En Vinilo</div>
+            </div>
+          </div>
+          <!-- Lista de novedades -->
+          <div style="background:#1e2130;border-radius:6px;overflow:hidden;">
+            <div style="padding:10px 14px;background:#181a26;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #2a2d35;">
+              <div style="font-family:var(--ff-mono);font-size:8px;color:#5a5d70;letter-spacing:0.12em;text-transform:uppercase;">Últimas incorporaciones</div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#10b981;animation:novPulse 1.5s ease-in-out infinite;"></div>
+                <span style="font-family:var(--ff-mono);font-size:8px;color:#10b981;letter-spacing:0.08em;">En vivo</span>
+              </div>
+            </div>
+            <table style="width:100%;border-collapse:collapse;font-size:10px;">
+              <thead>
+                <tr style="border-bottom:1px solid #2a2d35;">
+                  <th style="text-align:left;padding:7px 12px;font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.12em;text-transform:uppercase;">Artista</th>
+                  <th style="text-align:left;padding:7px 12px;font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.12em;text-transform:uppercase;">Título</th>
+                  <th style="text-align:left;padding:7px 12px;font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.12em;text-transform:uppercase;">Formato</th>
+                  <th style="text-align:right;padding:7px 12px;font-family:var(--ff-mono);font-size:7px;color:#4a4d60;letter-spacing:0.12em;text-transform:uppercase;">Precio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid rgba(42,45,53,0.5);border-left:2px solid #10b981;">
+                  <td style="padding:7px 12px;color:#c8c4b8;font-weight:500;">Kendrick Lamar</td>
+                  <td style="padding:7px 12px;color:#7a7d8a;">GNX</td>
+                  <td style="padding:7px 12px;"><span style="background:rgba(200,150,42,0.15);color:#c8962a;padding:2px 7px;border-radius:3px;font-family:var(--ff-mono);font-size:8px;">Vinilo</span></td>
+                  <td style="padding:7px 12px;text-align:right;font-family:var(--ff-display);font-size:13px;color:#10b981;">$34.990</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,45,53,0.5);border-left:2px solid #10b981;">
+                  <td style="padding:7px 12px;color:#c8c4b8;font-weight:500;">Soda Stereo</td>
+                  <td style="padding:7px 12px;color:#7a7d8a;">Nada Personal</td>
+                  <td style="padding:7px 12px;"><span style="background:rgba(200,150,42,0.15);color:#c8962a;padding:2px 7px;border-radius:3px;font-family:var(--ff-mono);font-size:8px;">Vinilo</span></td>
+                  <td style="padding:7px 12px;text-align:right;font-family:var(--ff-display);font-size:13px;color:#10b981;">$28.990</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,45,53,0.5);border-left:2px solid #10b981;">
+                  <td style="padding:7px 12px;color:#c8c4b8;font-weight:500;">Bad Bunny</td>
+                  <td style="padding:7px 12px;color:#7a7d8a;">DeBÍ TiRAR MáS FOToS</td>
+                  <td style="padding:7px 12px;"><span style="background:rgba(59,130,246,0.15);color:#3b82f6;padding:2px 7px;border-radius:3px;font-family:var(--ff-mono);font-size:8px;">CD</span></td>
+                  <td style="padding:7px 12px;text-align:right;font-family:var(--ff-display);font-size:13px;color:#10b981;">$12.990</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(42,45,53,0.5);border-left:2px solid #10b981;">
+                  <td style="padding:7px 12px;color:#c8c4b8;font-weight:500;">Charly García</td>
+                  <td style="padding:7px 12px;color:#7a7d8a;">Clics Modernos</td>
+                  <td style="padding:7px 12px;"><span style="background:rgba(200,150,42,0.15);color:#c8962a;padding:2px 7px;border-radius:3px;font-family:var(--ff-mono);font-size:8px;">Vinilo</span></td>
+                  <td style="padding:7px 12px;text-align:right;font-family:var(--ff-display);font-size:13px;color:#10b981;">$31.990</td>
+                </tr>
+                <tr style="border-left:2px solid #10b981;">
+                  <td style="padding:7px 12px;color:#c8c4b8;font-weight:500;">Billie Eilish</td>
+                  <td style="padding:7px 12px;color:#7a7d8a;">HIT ME HARD AND SOFT</td>
+                  <td style="padding:7px 12px;"><span style="background:rgba(59,130,246,0.15);color:#3b82f6;padding:2px 7px;border-radius:3px;font-family:var(--ff-mono);font-size:8px;">CD</span></td>
+                  <td style="padding:7px 12px;text-align:right;font-family:var(--ff-display);font-size:13px;color:#10b981;">$11.990</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /padding -->
+    </div><!-- /panel -->
+  </div><!-- /grid -->
+</section>
+
+<style>
+.demo-nav-btn {
+  background: transparent;
+  border: 1px solid #2a2d35;
+  color: #5a5d70;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-family: var(--ff-body);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+.demo-nav-btn:hover { border-color: #c8962a; color: #c8c4b8; }
+.demo-nav-active { border-color: #c8962a !important; color: #c8962a !important; background: rgba(200,150,42,0.08) !important; }
+
+/* Botón Novedades — estilo verde especial */
+.demo-nav-nov {
+  border-color: rgba(16,185,129,0.4) !important;
+  color: #10b981 !important;
+  background: rgba(16,185,129,0.05) !important;
+  position: relative;
+}
+.demo-nav-nov::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  margin-right: 6px;
+  animation: novPulse 1.5s ease-in-out infinite;
+  vertical-align: middle;
+}
+.demo-nav-nov-active {
+  border-color: #10b981 !important;
+  color: #10b981 !important;
+  background: rgba(16,185,129,0.12) !important;
+}
+.panel-tab-nov { color: #10b981 !important; }
+.panel-tab-nov-active { color: #10b981 !important; background: rgba(16,185,129,0.08) !important; }
+
+@keyframes novPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+.panel-tab {
+  padding: 8px 16px;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a4d60;
+  border-right: 1px solid #2a2d35;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.panel-tab:hover { color: #9a9d9f; background: rgba(255,255,255,0.02); }
+.panel-tab-active { color: #c8962a !important; background: rgba(200,150,42,0.06) !important; }
+.demo-panel { animation: fadeIn 0.3s ease; }
+
+/* Tooltip parpadeante */
+#demo-tooltip {
+  position: absolute;
+  top: -36px;
+  left: 0;
+  background: var(--gold);
+  color: var(--ink);
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+  font-weight: 700;
+}
+#demo-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 18px;
+  border: 5px solid transparent;
+  border-top-color: var(--gold);
+}
+</style>
+
+<script>
+// ── DEMO DATA ──
+const DEMO_PRODUCTS = [
+  {a:'David Bowie',t:'Ziggy Stardust',g:'Anglo',f:'Vinilo',p:24990},
+  {a:'The Beatles',t:'Abbey Road',g:'Anglo',f:'Vinilo',p:29990},
+  {a:'Led Zeppelin',t:'IV',g:'Anglo',f:'Vinilo',p:22990},
+  {a:'Miles Davis',t:'Kind of Blue',g:'Jazz',f:'Vinilo',p:19990},
+  {a:'Pink Floyd',t:'The Wall',g:'Anglo',f:'CD',p:8990},
+  {a:'Radiohead',t:'OK Computer',g:'Anglo',f:'CD',p:7490},
+  {a:'Coltrane, John',t:'A Love Supreme',g:'Jazz',f:'CD',p:9990},
+  {a:'Bach',t:'Goldberg Variations',g:'Clásico',f:'CD',p:6990},
+  {a:'Mercedes Sosa',t:'Gracias a la Vida',g:'Latino',f:'CD',p:5990},
+  {a:'Caetano Veloso',t:'Tropicália',g:'Latino',f:'CD',p:6490},
+  {a:'Metallica',t:'Black Album',g:'Anglo',f:'CD',p:7990},
+  {a:'Nirvana',t:'Nevermind',g:'Anglo',f:'CD',p:7490},
+  {a:'Beethoven',t:'Sinfonía N°9',g:'Clásico',f:'CD',p:5990},
+  {a:'Ella Fitzgerald',t:'The Cole Porter Songbook',g:'Jazz',f:'CD',p:8490},
+  {a:'Soda Stereo',t:'Signos',g:'Latino',f:'CD',p:6990},
+  {a:'Gustavo Cerati',t:'Bocanada',g:'Latino',f:'CD',p:5490},
+  {a:'Amy Winehouse',t:'Back to Black',g:'Anglo',f:'CD',p:7990},
+  {a:'Bob Dylan',t:'Highway 61 Revisited',g:'Anglo',f:'Vinilo',p:21990},
+  {a:'Chopin',t:'Nocturnes',g:'Clásico',f:'CD',p:5990},
+  {a:'Chet Baker',t:'Chet',g:'Jazz',f:'Vinilo',p:17990},
+  {a:'Queen',t:'A Night at the Opera',g:'Anglo',f:'CD',p:8490},
+  {a:'Violeta Parra',t:'Gracias a la Vida',g:'Latino',f:'CD',p:5990},
+  {a:'Fleetwood Mac',t:'Rumours',g:'Anglo',f:'Vinilo',p:25990},
+  {a:'Café Tacvba',t:'Re',g:'Latino',f:'CD',p:6490},
+  {a:'Thelonious Monk',t:'Straight No Chaser',g:'Jazz',f:'CD',p:8990},
+  {a:'Mozart',t:'Don Giovanni',g:'Clásico',f:'CD',p:7490},
+  {a:'The Rolling Stones',t:'Exile on Main St.',g:'Anglo',f:'Vinilo',p:27990},
+  {a:'Chavela Vargas',t:'La Llorona',g:'Latino',f:'CD',p:5490},
+  {a:'Kendrick Lamar',t:'To Pimp a Butterfly',g:'Anglo',f:'CD',p:8990},
+  {a:'Astor Piazzolla',t:'Libertango',g:'Latino',f:'CD',p:6990},
+];
+
+let demoFiltered = [...DEMO_PRODUCTS];
+
+// ── CONTADOR ANIMADO ──
+function animateCount(el, target, duration=1400) {
+  const start = performance.now();
+  const step = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3); // ease out cubic
+    const val = Math.round(ease * target);
+    el.textContent = val.toLocaleString('es-CL');
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString('es-CL');
+  };
+  requestAnimationFrame(step);
+}
+
+function triggerCounters() {
+  const counters = [
+    {id:'kpi-anglo',  val:4820},
+    {id:'kpi-latino', val:3210},
+    {id:'kpi-clasico',val:1405},
+    {id:'kpi-jazz',   val:890},
+  ];
+  counters.forEach(c => {
+    const el = document.getElementById(c.id);
+    if (el) animateCount(el, c.val);
+  });
+}
+
+function triggerNovCounter() {
+  const el = document.getElementById('kpi-nov-total');
+  if (el) animateCount(el, 1405, 1600);
+}
+
+// ── TOOLTIP PARPADEANTE ──
+function showTooltip() {
+  const tooltip = document.getElementById('demo-tooltip');
+  if (!tooltip || tooltip.dataset.shown) return;
+  tooltip.dataset.shown = '1';
+  // Parpadeo 3 veces luego desaparece
+  let blinks = 0;
+  const blink = setInterval(() => {
+    tooltip.style.opacity = blinks % 2 === 0 ? '1' : '0.2';
+    blinks++;
+    if (blinks >= 6) {
+      clearInterval(blink);
+      setTimeout(() => { tooltip.style.opacity = '0'; }, 600);
+    }
+  }, 400);
+}
+
+// ── CAMBIO DE PESTAÑA ──
+function demoTab(tab) {
+  ['generos','formatos','precios','catalogo','novedades'].forEach(t => {
+    document.getElementById('panel-'+t).style.display = t===tab ? 'block' : 'none';
+    document.getElementById('ptab-'+t).classList.toggle('panel-tab-active', t===tab);
+    document.getElementById('ptab-'+t).classList.toggle('panel-tab-nov-active', t===tab && tab==='novedades');
+    document.getElementById('dtab-'+t).classList.toggle('demo-nav-active', t===tab && tab!=='novedades');
+    document.getElementById('dtab-'+t).classList.toggle('demo-nav-nov-active', t===tab && tab==='novedades');
+  });
+  if (tab === 'catalogo') {
+    renderDemoTable();
+    setTimeout(showTooltip, 600);
+  }
+  if (tab === 'generos') triggerCounters();
+  if (tab === 'novedades') triggerNovCounter();
+}
+
+function demoSearch() {
+  const q = (document.getElementById('demo-search').value||'').toLowerCase().trim();
+  const fmt = document.getElementById('demo-format').value;
+  demoFiltered = DEMO_PRODUCTS.filter(p => {
+    if(fmt && p.f !== fmt) return false;
+    if(q && !p.a.toLowerCase().includes(q) && !p.t.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  renderDemoTable();
+}
+
+function renderDemoTable() {
+  const tbody = document.getElementById('demo-table-body');
+  const fmtColors = {CD:'#3b82f6',Vinilo:'#c8962a',DVD:'#f43f5e'};
+  if(!demoFiltered.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:#4a4d60;font-family:var(--ff-mono);font-size:10px;">Sin resultados</td></tr>';
+    document.getElementById('demo-count').textContent = '0 productos';
+    return;
+  }
+  tbody.innerHTML = demoFiltered.map(p => `<tr style="border-bottom:1px solid rgba(42,45,53,0.5);">
+    <td style="padding:6px 8px;color:#c8c4b8;font-weight:500;">${p.a}</td>
+    <td style="padding:6px 8px;color:#7a7d8a;">${p.t}</td>
+    <td style="padding:6px 8px;color:#5a5d70;font-family:var(--ff-mono);font-size:9px;">${p.g}</td>
+    <td style="padding:6px 8px;"><span style="background:rgba(${fmtColors[p.f]==='#3b82f6'?'59,130,246':fmtColors[p.f]==='#c8962a'?'200,150,42':'244,63,94'},0.15);color:${fmtColors[p.f]};padding:2px 7px;border-radius:3px;font-family:var(--ff-mono);font-size:8px;letter-spacing:0.08em;">${p.f}</span></td>
+    <td style="padding:6px 8px;text-align:right;font-family:var(--ff-display);font-size:13px;color:#c8962a;">$${p.p.toLocaleString('es-CL')}</td>
+  </tr>`).join('');
+  document.getElementById('demo-count').textContent = `${demoFiltered.length} productos encontrados`;
+}
+
+// ── INIT ──
+(function() {
+  const genres = [
+    {name:'Anglo', count:4820, pct:34.6, color:'#c8962a'},
+    {name:'Latino', count:3210, pct:23.1, color:'#3b82f6'},
+    {name:'Clásico', count:1405, pct:10.1, color:'#10b981'},
+    {name:'Jazz', count:890, pct:6.4, color:'#8b5cf6'},
+    {name:'Infantil', count:780, pct:5.6, color:'#f59e0b'},
+    {name:'Tropical', count:650, pct:4.7, color:'#06b6d4'},
+    {name:'Folklore', count:580, pct:4.2, color:'#f43f5e'},
+    {name:'Otros', count:1589, pct:11.4, color:'#4a4d60'},
+  ];
+  const container = document.getElementById('bars-generos');
+  if(container) {
+    container.innerHTML = genres.map(g => `
+      <div>
+        <div style="display:flex;justify-content:space-between;font-family:var(--ff-mono);font-size:9px;color:#7a7d8a;margin-bottom:3px;">
+          <span>${g.name}</span><span>${g.count.toLocaleString('es-CL')}</span>
+        </div>
+        <div style="height:5px;background:#252535;border-radius:3px;overflow:hidden;">
+          <div style="height:100%;width:${g.pct/34.6*100}%;background:${g.color};border-radius:3px;animation:barIn 1s cubic-bezier(.16,1,.3,1) both;"></div>
+        </div>
+      </div>`).join('');
+  }
+
+  renderDemoTable();
+
+  // Contadores al cargar — con pequeño delay para que se vea la animación
+  setTimeout(triggerCounters, 500);
+
+  // Contadores del hero mock
+  setTimeout(()=>{
+    [['hm1',4820],['hm2',3210],['hm3',1405],['hm4',890],['hm-nov',1405]].forEach(([id,v])=>{
+      const el=document.getElementById(id);
+      if(el) animateCount(el,v);
+    });
+  }, 600);
+})();
+</script>
+
+<!-- ═══════════ CÓMO FUNCIONA ═══════════ -->
+<section class="sec" style="background:var(--paper);">
+  <div style="text-align:center;margin-bottom:56px;">
+    <div class="section-label" style="justify-content:center;margin-bottom:14px;">Cómo funciona</div>
+    <h2 style="font-family:var(--ff-display);font-size:clamp(32px,3.5vw,48px);font-weight:900;line-height:1.05;letter-spacing:-0.02em;">Simple. Rápido.<br><em style="color:var(--gold)">Sin tecnicismos.</em></h2>
+  </div>
+  <div id="pasos-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;position:relative;max-width:900px;margin:0 auto;">
+    <div id="linea-conectora" style="position:absolute;top:36px;left:calc(16.6% + 20px);right:calc(16.6% + 20px);height:1px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));opacity:0.3;pointer-events:none;"></div>
+    <div style="text-align:center;padding:0 28px;position:relative;">
+      <div style="width:72px;height:72px;border-radius:50%;background:var(--paper2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;z-index:1;">
+        <span style="font-family:var(--ff-display);font-size:28px;font-weight:900;color:var(--gold);font-style:italic;">1</span>
+      </div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px;letter-spacing:0.02em;">Me compartes tu lista</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Tu Excel, planilla o archivo de productos — en el formato que tengas. Sin preparación previa.</div>
+    </div>
+    <div style="text-align:center;padding:0 28px;position:relative;">
+      <div style="width:72px;height:72px;border-radius:50%;background:var(--gold);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;z-index:1;box-shadow:0 8px 32px rgba(200,150,42,0.3);">
+        <span style="font-family:var(--ff-display);font-size:28px;font-weight:900;color:var(--ink);font-style:italic;">2</span>
+      </div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px;letter-spacing:0.02em;">Lo convertimos en tu DataVista</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Configuramos, organizamos y adaptamos todo a tu rubro. En 5 a 7 días hábiles está listo.</div>
+    </div>
+    <div style="text-align:center;padding:0 28px;position:relative;">
+      <div style="width:72px;height:72px;border-radius:50%;background:var(--paper2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;z-index:1;">
+        <span style="font-family:var(--ff-display);font-size:28px;font-weight:900;color:var(--gold);font-style:italic;">3</span>
+      </div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:10px;letter-spacing:0.02em;">Lo usas desde el día 1</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Sin instalaciones ni capacitaciones largas. Abres el archivo, arrastras tu Excel y listo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FRANJA RUBROS ── -->
+<div class="franja" style="background:var(--ink);border-top:1px solid #1e2130;border-bottom:1px solid #1e2130;">
+  <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;">
+    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:#f0ece2;font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Ferreterías</span>
+    <span style="color:var(--gold);font-size:18px;opacity:0.5;"> · </span>
+    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:#f0ece2;font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Mini Markets</span>
+    <span style="color:var(--gold);font-size:18px;opacity:0.5;"> · </span>
+    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:var(--gold);font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Disquerías</span>
+    <span style="color:var(--gold);font-size:18px;opacity:0.5;"> · </span>
+    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:#f0ece2;font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Librerías</span>
+    <span style="color:var(--gold);font-size:18px;opacity:0.5;"> · </span>
+    <span style="font-family:var(--ff-display);font-size:clamp(15px,1.8vw,22px);color:#f0ece2;font-weight:700;letter-spacing:0.03em;padding:6px 20px;">Mayoristas</span>
+  </div>
+  <div style="text-align:center;margin-top:8px;font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#3a3d50;">Si tienes más de 100 productos — esto es para ti</div>
+</div>
+
+<!-- ═══════════ RUBROS ═══════════ -->
+<section class="rubros-section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Adaptado a tu industria</div>
+      <h2 class="section-title">Un dashboard<br><em>para cada</em><br>tipo de negocio.</h2>
+    </div>
+    <p class="section-desc">
+      Cada rubro tiene sus propios indicadores clave. No es lo mismo gestionar stock de tornillos que de libros o bebidas. Por eso cada dashboard se configura con las variables que realmente importan para ti.
+    </p>
+  </div>
+
+  <div class="rubros-grid">
+    <div class="rubro-card">
+      <div class="rubro-icon-wrap">🔧</div>
+      <div class="rubro-name">Ferretería</div>
+      <ul class="rubro-features">
+        <li>Control de stock por SKU y familia</li>
+        <li>Análisis de rotación por ítem</li>
+        <li>Precio por proveedor y margen</li>
+        <li>Top productos más vendidos</li>
+      </ul>
+    </div>
+    <div class="rubro-card">
+      <div class="rubro-icon-wrap">🛒</div>
+      <div class="rubro-name">Mini Market</div>
+      <ul class="rubro-features">
+        <li>Categorías y subcategorías</li>
+        <li>Vencimientos y novedades</li>
+        <li>Precios por proveedor</li>
+        <li>Productos sin movimiento</li>
+      </ul>
+    </div>
+    <div class="rubro-card">
+      <div class="rubro-icon-wrap">🎵</div>
+      <div class="rubro-name">Disquería</div>
+      <ul class="rubro-features">
+        <li>Catálogo por género y formato</li>
+        <li>Novedades destacadas</li>
+        <li>Vista por artista y álbum</li>
+        <li>Precios y disponibilidad</li>
+      </ul>
+    </div>
+    <div class="rubro-card">
+      <div class="rubro-icon-wrap">📚</div>
+      <div class="rubro-name">Librería</div>
+      <ul class="rubro-features">
+        <li>Catálogo por autor y género</li>
+        <li>Stock por editorial</li>
+        <li>Novedades editoriales</li>
+        <li>Análisis de precio por formato</li>
+      </ul>
+    </div>
+    <div class="rubro-card" style="border-right:none">
+      <div class="rubro-icon-wrap">🏭</div>
+      <div class="rubro-name">Mayorista</div>
+      <ul class="rubro-features">
+        <li>Maestra de productos masiva</li>
+        <li>Segmentación por línea</li>
+        <li>Comparativa de precios</li>
+        <li>Exportación de lista filtrada</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ANTES Y DESPUÉS ═══════════ -->
+<section class="sec" style="background:var(--ink);overflow:hidden;">
+  <div style="position:absolute;top:-80px;left:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(200,150,42,0.05) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div style="text-align:center;margin-bottom:48px;">
+    <div class="section-label" style="color:var(--gold);justify-content:center;margin-bottom:14px;">El cambio real</div>
+    <h2 style="font-family:var(--ff-display);font-size:clamp(32px,3.5vw,48px);font-weight:900;line-height:1.05;letter-spacing:-0.02em;color:#f0ece2;">La diferencia se ve<br><em style="color:var(--gold)">desde el primer día.</em></h2>
+  </div>
+
+  <div id="antesdespues-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:3px;max-width:860px;margin:0 auto;border-radius:10px;overflow:hidden;">
+
+    <!-- ANTES -->
+    <div style="background:#13151e;padding:36px 40px;border:1px solid #2a2d35;border-right:none;border-radius:10px 0 0 10px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;">✗</div>
+        <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#f43f5e;">Antes</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
+          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">Excel desactualizado con múltiples versiones sin control</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
+          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">No sabes cuánto stock real tienes ni qué está agotado</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
+          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">Pierdes tiempo buscando precios entre archivos</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
+          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">Vendes productos que ya no tienes en stock</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:#f43f5e;font-size:13px;flex-shrink:0;margin-top:1px;">✗</span>
+          <span style="font-size:12px;color:#6a6d7a;line-height:1.5;">Nadie sabe cuál archivo es el bueno ni cuál está actualizado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESPUÉS -->
+    <div style="background:#0e1a14;padding:36px 40px;border:1px solid rgba(42,92,63,0.4);border-left:none;border-radius:0 10px 10px 0;position:relative;">
+      <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),#2a5c3f);"></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:28px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(56,184,122,0.15);border:1px solid rgba(56,184,122,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;">✓</div>
+        <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);">Con DataVista</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
+          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Todo tu catálogo visible, filtrable y ordenado en un clic</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
+          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Stock actualizado cada vez que cargas tu Excel</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
+          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Precios ordenados por categoría con análisis instantáneo</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
+          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Exportable a CSV cuando quieras, con los filtros aplicados</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span style="color:var(--green);font-size:13px;flex-shrink:0;margin-top:1px;">✓</span>
+          <span style="font-size:12px;color:#c8c4b8;line-height:1.5;">Un solo lugar. Siempre el mismo archivo. Siempre al día.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ QUÉ INCLUYE ═══════════ -->
+<section class="incluye-section">
+  <div class="section-label" style="color:var(--gold)">¿Qué recibes?</div>
+  <h2 class="section-title" style="color:#f0ece2;font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,52px);font-weight:900;letter-spacing:-0.02em;margin-top:14px">
+    Todo lo que necesitas,<br><em style="color:var(--gold)">listo para usar.</em>
+  </h2>
+
+  <div class="incluye-grid">
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div>
+          <div class="feature-title">Archivo HTML autónomo</div>
+          <div class="feature-desc">Un único archivo que funciona en cualquier computador con navegador. No requiere instalación ni configuración. Lo abres y funciona al instante.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div>
+          <div class="feature-title">Carga desde tu propio Excel</div>
+          <div class="feature-desc">Arrastra tu planilla Excel (maestra de productos, inventario, catálogo) y el dashboard procesa todo al instante. Tus datos nunca salen de tu equipo.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div>
+          <div class="feature-title">Gráficos, KPIs y tablas filtradas</div>
+          <div class="feature-desc">Visualizaciones interactivas adaptadas a tu rubro: gráficos de distribución, rankings, análisis de precios, filtros por categoría y descarga de tu lista.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <div>
+          <div class="feature-title">Personalización con tu marca</div>
+          <div class="feature-desc">Nombre de tu empresa, colores corporativos y ajuste de las columnas según cómo tengas organizado tu Excel.</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">05</div>
+        <div>
+          <div class="feature-title">Soporte y ajustes post entrega</div>
+          <div class="feature-desc">Dos meses de soporte para ajustar columnas, agregar filtros o resolver dudas sobre el uso del dashboard.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini tabs preview -->
+    <div class="incluye-right" id="incluye-right-panel">
+      <div class="tabs-preview">
+        <div class="tabs-nav">
+          <div class="tab-pill active">Resumen</div>
+          <div class="tab-pill">Categorías</div>
+          <div class="tab-pill">Precios</div>
+          <div class="tab-pill">Novedades</div>
+          <div class="tab-pill">Catálogo</div>
+        </div>
+        <div class="tabs-body">
+          <div class="mini-stat-row">
+            <div class="mini-stat" style="--mini-c:#c8962a"><div class="mini-stat-val">3.840</div><div class="mini-stat-lbl">Productos</div></div>
+            <div class="mini-stat" style="--mini-c:#06b6d4"><div class="mini-stat-val">24</div><div class="mini-stat-lbl">Categorías</div></div>
+            <div class="mini-stat" style="--mini-c:#10b981"><div class="mini-stat-val">187</div><div class="mini-stat-lbl">Novedades</div></div>
+          </div>
+          <table class="mini-table">
+            <thead>
+              <tr>
+                <th>#</th><th>Producto</th><th>Cat.</th><th>Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Tuerca M12 zinc</td><td>Fijaciones</td><td style="color:#c8962a">$290</td></tr>
+              <tr><td>2</td><td>Sierra caladora</td><td>Herramientas</td><td style="color:#c8962a">$42.900</td></tr>
+              <tr><td>3</td><td>Pintura esmalte 1L</td><td>Pinturas</td><td style="color:#c8962a">$8.490</td></tr>
+              <tr><td>4</td><td>Cable 2.5mm 100m</td><td>Eléctrico</td><td style="color:#c8962a">$31.200</td></tr>
+              <tr><td>5</td><td>Llave punta corona</td><td>Herramientas</td><td style="color:#c8962a">$5.990</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Key benefits -->
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:4px">
+        <div style="background:#1a1d2a;border-radius:6px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
+          <span style="font-size:20px">🔒</span>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#e8e4d8;margin-bottom:3px">Privacidad total</div>
+            <div style="font-size:11px;color:#5a5d70;line-height:1.5">Tus datos nunca salen de tu computador. Nadie externo puede verlos.</div>
+          </div>
+        </div>
+        <div style="background:#1a1d2a;border-radius:6px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
+          <span style="font-size:20px">⚡</span>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#e8e4d8;margin-bottom:3px">Funciona offline</div>
+            <div style="font-size:11px;color:#5a5d70;line-height:1.5">Sin internet, sin suscripciones mensuales. Paga una vez y úsalo para siempre.</div>
+          </div>
+        </div>
+        <div style="background:#1a1d2a;border-radius:6px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
+          <span style="font-size:20px">📊</span>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#e8e4d8;margin-bottom:3px">Entrega en 5–7 días hábiles</div>
+            <div style="font-size:11px;color:#5a5d70;line-height:1.5">Diseñado para tu Excel específico. Listo en 5 a 7 días hábiles.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRECIO ═══════════ -->
+<section class="precio-section">
+  <div class="section-label">Inversión</div>
+  <h2 class="section-title" style="margin-top:14px;font-size:clamp(32px,3.5vw,52px)">Menos que un mes<br>de cualquier software.<br><em>Tuyo para siempre.</em></h2>
+  <p style="font-size:13px;color:var(--muted);margin-top:16px;max-width:520px;line-height:1.7">Cualquier software de gestión cuesta entre $30.000 y $150.000 al mes. Tu DataVista se paga una vez y no tiene fecha de vencimiento.</p>
+
+  <!-- TABLA DE PLANES -->
+  <div style="margin-top:48px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--cream);">
+
+    <!-- Cabecera de planes -->
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;border-bottom:1px solid var(--line);">
+      <div style="padding:28px 32px;display:flex;align-items:flex-end;">
+        <div>
+          <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Elige tu plan</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.5;max-width:220px;">Ambos incluyen pago único, sin suscripciones ni sorpresas.</div>
+        </div>
+      </div>
+
+      <!-- Plan Esencial -->
+      <div style="padding:28px 24px;border-left:1px solid var(--line);text-align:center;background:var(--paper2);">
+        <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Esencial</div>
+        <div style="font-family:var(--ff-display);font-size:42px;font-weight:900;line-height:1;color:var(--ink);">$120<span style="font-size:18px">.000</span></div>
+        <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;margin-top:6px;">Pago único</div>
+        <div style="margin-top:14px;padding:9px 14px;background:var(--paper);border:1px solid var(--line);border-radius:5px;font-size:11px;color:var(--muted);line-height:1.4;">Para comenzar tu digitalización</div>
+      </div>
+
+      <!-- Plan Completo -->
+      <div style="padding:28px 24px;border-left:1px solid rgba(200,150,42,0.3);text-align:center;background:var(--ink);position:relative;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));"></div>
+        <div style="display:inline-block;background:var(--gold);color:var(--ink);font-family:var(--ff-mono);font-size:7px;letter-spacing:0.15em;text-transform:uppercase;padding:3px 10px;border-radius:99px;font-weight:700;margin-bottom:10px;">★ Recomendado</div>
+        <div style="font-family:var(--ff-display);font-size:42px;font-weight:900;line-height:1;color:var(--gold);">$180<span style="font-size:18px">.000</span></div>
+        <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.1em;color:rgba(200,150,42,0.5);text-transform:uppercase;margin-top:6px;">Pago único</div>
+        <div style="margin-top:14px;padding:9px 14px;background:rgba(200,150,42,0.08);border:1px solid rgba(200,150,42,0.2);border-radius:5px;font-size:11px;color:#9a9d8a;line-height:1.4;">Máximo valor para tu negocio</div>
+      </div>
+    </div>
+
+    <!-- Filas de características -->
+    <div id="plan-rows"></div>
+
+    <!-- Fila final: nota sin letra chica -->
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;border-top:1px solid var(--line);">
+      <div style="padding:20px 32px;display:flex;align-items:center;">
+        <div style="font-size:11px;color:var(--muted);line-height:1.6;">
+          💡 <strong>Sin letra chica:</strong> El archivo es suyo para siempre. Sin vencimiento. Lo usas cuando quieras.
+        </div>
+      </div>
+      <div style="padding:20px 24px;border-left:1px solid var(--line);background:var(--paper2);display:flex;align-items:center;justify-content:center;">
+        <a href="https://wa.me/56979527762?text=Me%20interesa%20el%20Plan%20Esencial%20DataVista" target="_blank" style="display:inline-block;padding:10px 20px;border:1.5px solid var(--ink);border-radius:5px;font-family:var(--ff-body);font-size:12px;font-weight:700;color:var(--ink);text-decoration:none;text-align:center;transition:all 0.2s;" onmouseover="this.style.background='var(--ink)';this.style.color='var(--paper)'" onmouseout="this.style.background='transparent';this.style.color='var(--ink)'">Solicitar Esencial</a>
+      </div>
+      <div style="padding:20px 24px;border-left:1px solid rgba(200,150,42,0.3);background:var(--ink);display:flex;align-items:center;justify-content:center;">
+        <a href="https://wa.me/56979527762?text=Me%20interesa%20el%20Plan%20Completo%20DataVista" target="_blank" style="display:inline-block;padding:10px 20px;background:var(--gold);border-radius:5px;font-family:var(--ff-body);font-size:12px;font-weight:700;color:var(--ink);text-decoration:none;text-align:center;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Solicitar Completo ★</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const features = [
+      { label:'DataVista personalizado para tu rubro',    esencial: true,  completo: true  },
+      { label:'Secciones analíticas',                     esencial: '3',   completo: '6'   },
+      { label:'KPIs, gráficos y tablas interactivas',     esencial: true,  completo: true  },
+      { label:'Filtros y búsqueda en tiempo real',        esencial: true,  completo: true  },
+      { label:'Descarga tu lista filtrada',               esencial: true,  completo: true  },
+      { label:'Módulo de novedades / artistas',           esencial: false, completo: true  },
+      { label:'Personalización con marca y colores',      esencial: false, completo: true  },
+      { label:'Comparativas y análisis de precios',       esencial: false, completo: true  },
+      { label:'Soporte post entrega',                     esencial: '1 mes', completo: '2 meses' },
+      { label:'Entrega estimada',                         esencial: '5–7 días', completo: '5–7 días' },
+    ];
+
+    const isMobile = () => window.innerWidth <= 600;
+
+    const renderMobile = () => {
+      // Tarjetas apiladas — legibles en móvil
+      const fmt = (val) => {
+        if (val === true)  return '<span style="color:#2a5c3f;font-weight:700;">✓ Incluido</span>';
+        if (val === false) return '<span style="color:#8a8070;">— No incluido</span>';
+        return `<span style="color:var(--gold);font-weight:600;">${val}</span>`;
+      };
+      const rows = features.map(f => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(212,207,196,0.3);gap:12px;">
+          <span style="font-size:12px;color:var(--ink);flex:1;">${f.label}</span>
+          <span style="font-size:11px;text-align:right;white-space:nowrap;">${fmt(f.esencial)}</span>
+        </div>`).join('');
+      const rowsC = features.map(f => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(200,150,42,0.15);gap:12px;">
+          <span style="font-size:12px;color:#c8c4b8;flex:1;">${f.label}</span>
+          <span style="font-size:11px;text-align:right;white-space:nowrap;">${fmt(f.completo)}</span>
+        </div>`).join('');
+
+      return `
+        <div style="display:flex;flex-direction:column;gap:16px;padding:4px 0 0;">
+          <!-- Tarjeta Esencial -->
+          <div style="background:var(--paper2);border:1px solid var(--line);border-radius:10px;overflow:hidden;">
+            <div style="padding:20px;border-bottom:1px solid var(--line);text-align:center;">
+              <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Esencial</div>
+              <div style="font-family:var(--ff-display);font-size:38px;font-weight:900;color:var(--ink);line-height:1;">$120<span style="font-size:16px">.000</span></div>
+              <div style="font-family:var(--ff-mono);font-size:9px;color:var(--muted);text-transform:uppercase;margin-top:4px;">Pago único</div>
+            </div>
+            <div style="padding:16px 20px;">${rows}</div>
+            <div style="padding:16px 20px;border-top:1px solid var(--line);">
+              <a href="https://wa.me/56979527762?text=Me%20interesa%20el%20Plan%20Esencial%20DataVista" target="_blank"
+                style="display:block;padding:12px;border:1.5px solid var(--ink);border-radius:6px;font-family:var(--ff-body);font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;text-align:center;">
+                Solicitar Esencial
+              </a>
+            </div>
+          </div>
+          <!-- Tarjeta Completo -->
+          <div style="background:var(--ink);border:1px solid rgba(200,150,42,0.3);border-radius:10px;overflow:hidden;position:relative;">
+            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));"></div>
+            <div style="padding:20px;border-bottom:1px solid rgba(200,150,42,0.15);text-align:center;">
+              <div style="display:inline-block;background:var(--gold);color:var(--ink);font-family:var(--ff-mono);font-size:8px;letter-spacing:0.15em;text-transform:uppercase;padding:3px 10px;border-radius:99px;font-weight:700;margin-bottom:10px;">★ Recomendado</div>
+              <div style="font-family:var(--ff-display);font-size:38px;font-weight:900;color:var(--gold);line-height:1;">$180<span style="font-size:16px">.000</span></div>
+              <div style="font-family:var(--ff-mono);font-size:9px;color:rgba(200,150,42,0.5);text-transform:uppercase;margin-top:4px;">Pago único</div>
+            </div>
+            <div style="padding:16px 20px;">${rowsC}</div>
+            <div style="padding:16px 20px;border-top:1px solid rgba(200,150,42,0.15);">
+              <a href="https://wa.me/56979527762?text=Me%20interesa%20el%20Plan%20Completo%20DataVista" target="_blank"
+                style="display:block;padding:12px;background:var(--gold);border-radius:6px;font-family:var(--ff-body);font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;text-align:center;">
+                Solicitar Completo ★
+              </a>
+            </div>
+          </div>
+          <div style="padding:14px 16px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;font-size:11px;color:var(--muted);line-height:1.6;">
+            💡 <strong>Sin letra chica:</strong> El archivo es tuyo para siempre. Sin vencimiento. Lo usas cuando quieras.
+          </div>
+        </div>`;
+    };
+
+    const renderDesktop = () => {
+      const cell = (val, dark) => {
+        const bg   = dark ? '#13151e' : 'var(--paper2)';
+        const border = dark ? 'rgba(200,150,42,0.15)' : 'var(--line)';
+        if (val === true)  return `<div style="padding:14px 24px;border-left:1px solid ${border};background:${bg};text-align:center;"><span style="color:${dark?'#c8962a':'#2a5c3f'};font-size:15px;">✓</span></div>`;
+        if (val === false) return `<div style="padding:14px 24px;border-left:1px solid ${border};background:${bg};text-align:center;"><span style="color:${dark?'#3a3d50':'#c0bbae'};font-size:13px;">—</span></div>`;
+        return `<div style="padding:14px 24px;border-left:1px solid ${border};background:${bg};text-align:center;font-family:var(--ff-mono);font-size:10px;color:${dark?'#c8962a':'var(--ink)'};letter-spacing:0.05em;">${val}</div>`;
+      };
+      return features.map((f, i) => {
+        const rowBg = i % 2 === 0 ? '' : 'filter:brightness(0.97)';
+        return `<div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;border-top:1px solid var(--line);${rowBg}">
+          <div style="padding:14px 32px;display:flex;align-items:center;font-size:12px;color:var(--ink);">${f.label}</div>
+          ${cell(f.esencial, false)}
+          ${cell(f.completo, true)}
+        </div>`;
+      }).join('');
+    };
+
+    const container = document.getElementById('plan-rows');
+    const render = () => {
+      if (isMobile()) {
+        container.innerHTML = renderMobile();
+        // Ocultar el header de tabla y footer en móvil — los reemplazamos con las tarjetas
+        const tableHeader = container.parentElement.querySelector('div[style*="grid-template-columns:1.6fr 1fr 1fr"]:first-child');
+        const tableFooter = container.nextElementSibling;
+        if (tableHeader) tableHeader.style.display = 'none';
+        if (tableFooter && tableFooter.style && tableFooter.style.cssText.includes('grid-template-columns:1.6fr')) tableFooter.style.display = 'none';
+      } else {
+        container.innerHTML = renderDesktop();
+      }
+    };
+
+    render();
+    window.addEventListener('resize', render);
+  })();
+  </script>
+
+  <!-- Anclaje de valor -->
+  <div style="margin-top:28px;padding:20px 28px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div style="font-size:22px">💬</div>
+    <div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:3px;">¿Te parece mucho? Haz la comparación.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;">Un software de gestión genérico cuesta entre $30.000 y $150.000 <em>al mes</em>. Tu DataVista se paga una sola vez y no expira. En 2 meses ya amortizaste la inversión.</div>
+    </div>
+  </div>
+
+  <!-- Servicios adicionales -->
+  <div style="margin-top:48px;">
+    <div class="section-label" style="font-size:9px;margin-bottom:8px;">Servicios adicionales</div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:24px;">¿Necesitas algo más? Estos servicios se cotizan por separado.</p>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
+      <div class="extra-card">
+        <div class="extra-tag">+$25.000</div>
+        <div class="extra-title">Actualización del DataVista</div>
+        <div class="extra-desc">Si cambias tu planilla de productos y el DataVista deja de leerla bien, lo ajustamos para que vuelva a funcionar perfecto.</div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-tag">A cotizar</div>
+        <div class="extra-title">Sección extra a medida</div>
+        <div class="extra-desc">¿Quieres ver algo específico que no está en tu DataVista? Lo agregamos según lo que necesite tu negocio.</div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-tag">+$20.000</div>
+        <div class="extra-title">Acompañamiento de uso</div>
+        <div class="extra-desc">Una llamada de 1 hora para que tú y tu equipo aprendan a usar el DataVista sin complicaciones.</div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-tag">Incluido</div>
+        <div class="extra-title">Guía de uso en PDF</div>
+        <div class="extra-desc">Cada DataVista se entrega con una guía simple paso a paso: cómo cargar tu Excel, cómo filtrar y cómo descargar tu lista.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COMPARATIVA ═══════════ -->
+<section class="compare-section">
+  <div class="section-label">DataVista vs Excel</div>
+  <h2 class="section-title" style="margin-top:14px;font-size:clamp(28px,3vw,44px)">¿Por qué no<br><em>basta con Excel?</em></h2>
+
+  <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>¿Puedo...</th>
+          <th class="ours">DataVista Interactivo</th>
+          <th>Excel tradicional</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ver mis productos con gráficos y resúmenes al instante</td>
+          <td class="ours"><span class="check">✓</span> Sí, automático</td>
+          <td><span class="cross">✗</span> Hay que armarlo a mano</td>
+        </tr>
+        <tr>
+          <td>Buscar un producto por nombre en segundos</td>
+          <td class="ours"><span class="check">✓</span> Sí, con buscador</td>
+          <td><span class="cross">✗</span> Ctrl+F limitado</td>
+        </tr>
+        <tr>
+          <td>Filtrar por categoría, formato o precio</td>
+          <td class="ours"><span class="check">✓</span> Sí, con un clic</td>
+          <td>Parcial, requiere configuración</td>
+        </tr>
+        <tr>
+          <td>Ver cuántos productos hay por categoría</td>
+          <td class="ours"><span class="check">✓</span> Sí, visible siempre</td>
+          <td><span class="cross">✗</span> Hay que contar o usar fórmulas</td>
+        </tr>
+        <tr>
+          <td>Usarlo sin saber de computadores</td>
+          <td class="ours"><span class="check">✓</span> Sí, muy fácil</td>
+          <td><span class="cross">✗</span> Requiere conocimiento previo</td>
+        </tr>
+        <tr>
+          <td>Funciona sin internet</td>
+          <td class="ours"><span class="check">✓</span> Sí, 100% offline</td>
+          <td><span class="check">✓</span> Sí</td>
+        </tr>
+        <tr>
+          <td>Pago mensual o suscripción</td>
+          <td class="ours" style="color:var(--gold)">No — pago único</td>
+          <td style="color:#2a5c3f">No — gratis</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="sec" style="background:var(--paper2);">
+  <div style="max-width:720px;margin:0 auto;">
+    <div class="section-label" style="margin-bottom:14px;">Preguntas frecuentes</div>
+    <h2 style="font-family:var(--ff-display);font-size:clamp(28px,3vw,44px);font-weight:900;line-height:1.05;letter-spacing:-0.02em;margin-bottom:40px;">Todo lo que necesitas<br><em style="color:var(--gold)">saber antes de decidir.</em></h2>
+
+    <!-- FAQ items usando CSS puro con details/summary -->
+    <style>
+      .faq-item { border-bottom:1px solid var(--line); }
+      .faq-item summary {
+        list-style:none; padding:20px 0; cursor:pointer;
+        font-size:14px; font-weight:600; letter-spacing:0.01em;
+        display:flex; justify-content:space-between; align-items:center;
+        gap:16px; color:var(--ink);
+        transition: color 0.2s;
+      }
+      .faq-item summary::-webkit-details-marker { display:none; }
+      .faq-item summary:hover { color:var(--gold); }
+      .faq-item summary::after {
+        content:'＋'; font-size:18px; color:var(--gold);
+        flex-shrink:0; font-weight:300; transition:transform 0.25s;
+      }
+      .faq-item[open] summary::after { content:'－'; }
+      .faq-item[open] summary { color:var(--gold); }
+      .faq-body {
+        padding:0 0 20px 0; font-size:13px; color:var(--muted);
+        line-height:1.75; animation:fadeIn 0.25s ease;
+      }
+    </style>
+
+    <details class="faq-item">
+      <summary>¿Necesito instalar algo en mi computador?</summary>
+      <div class="faq-body">No. El DataVista es un archivo que abres directo con tu navegador (Chrome, Edge o cualquier otro). Nada que instalar, nada que configurar. Haces doble clic y funciona.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>¿Funciona en Mac y Windows?</summary>
+      <div class="faq-body">Sí, en ambos sistemas operativos sin diferencia. Mientras tengas un navegador actualizado, el DataVista funciona exactamente igual.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>¿Qué pasa si mi Excel cambia de estructura?</summary>
+      <div class="faq-body">Si agregas o cambias columnas en tu planilla, podemos actualizar el DataVista por un costo adicional de $25.000. Cambios menores dentro del primer mes de soporte están incluidos sin costo.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>¿Mis productos quedan guardados en algún lugar externo?</summary>
+      <div class="faq-body">No. Todo queda en tu computador. Nadie más puede ver tu lista de productos — ni nosotros. Cada vez que abres el DataVista simplemente arrastras tu Excel y listo.</div>
+    </details>
+
+    <details class="faq-item" style="border-bottom:none;">
+      <summary>¿Cuánto tarda la entrega?</summary>
+      <div class="faq-body">Entre 5 y 7 días hábiles desde que nos compartes tu archivo Excel. Ese tiempo incluye la configuración, adaptación a tu rubro y pruebas de funcionamiento con tus propios datos.</div>
+    </details>
+
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER CTA ═══════════ -->
+<section class="footer-cta">
+  <div>
+    <h2 class="footer-cta-title">¿Listo para ver<br>tu negocio <em>en datos</em>?</h2>
+    <p class="footer-cta-sub">
+      Te mostramos una demo con datos de tu propio rubro.<br>
+      Gratis, sin compromiso. Por WhatsApp en minutos.
+    </p>
+  </div>
+  <div class="cta-box">
+    <button class="btn-primary" onclick="window.open('https://wa.me/56979527762?text=Hola%2C%20quiero%20ver%20una%20demo%20del%20Dashboard%20DataVista%20Interactivo%20para%20mi%20negocio','_blank')">Solicitar mi DataVista gratis por WhatsApp →</button>
+    <button class="btn-ghost" onclick="window.open('https://wa.me/56979527762?text=Hola%2C%20me%20interesa%20contratar%20el%20Dashboard%20DataVista%20Interactivo','_blank')">Contratar DataVista Completo $180.000</button>
+  </div>
+</section>
+
+<div class="footer-bar">
+  <div class="footer-brand" style="line-height:1;"><img src="data:image/webp;base64,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" width="160" height="62" alt="DataVista" style="max-width:100%;height:auto;display:block;"></div>
+  <div class="footer-contact">
+    Dashboards analíticos a medida · Pago único<br>
+    WhatsApp: +56 9 7952 7762
+  </div>
+</div>
+
+</body>
+</html>
