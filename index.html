@@ -746,30 +746,52 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 
   html, body { overflow-x: hidden; }
 
+  /* ── Tipografía base: más grande para leer rápido ── */
+  body { font-size: 15px; }
+
   /* ── Padding universal: clases CSS ── */
-  .sec   { padding: 48px 18px !important; }
-  .franja { padding: 14px 18px !important; }
+  .sec   { padding: 48px 20px !important; }
+  .franja { padding: 14px 20px !important; }
 
   /* ── Padding universal: secciones con clase ── */
   .rubros-section, .incluye-section, .precio-section,
   .compare-section, .footer-cta, .footer-bar,
-  header, nav { padding-left: 18px !important; padding-right: 18px !important; }
+  header, nav { padding-left: 20px !important; padding-right: 20px !important; }
+
+  /* ── Etiquetas y labels de sección ── */
+  .section-label { font-size: 11px !important; }
+  .section-title { font-size: clamp(26px, 7vw, 34px) !important; line-height: 1.08 !important; }
+  .section-desc  { font-size: 14px !important; line-height: 1.65 !important; }
 
   /* Hero */
-  .hero-left { padding: 36px 18px !important; }
-  .hero-title { font-size: 32px; line-height: 1.05; }
-  .hero-sub { font-size: 13px; max-width: 100%; }
-  .hero-stat-val { font-size: 20px; }
-  .hero-bottom { flex-wrap: wrap; gap: 14px; }
-  .brand-title { font-size: 22px; letter-spacing: 1px; }
-  header { padding: 20px 18px !important; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hero-left { padding: 36px 20px !important; }
+  .hero-title { font-size: 36px; line-height: 1.03; letter-spacing: -0.025em; }
+  .hero-sub { font-size: 14px; max-width: 100%; line-height: 1.65; }
+  .hero-stat-val { font-size: 22px; }
+  .hero-stat-lbl { font-size: 10px; }
+  .hero-bottom { flex-wrap: wrap; gap: 18px; }
+  .hero-brand { font-size: 22px !important; }
+  header { padding: 20px 20px !important; flex-direction: column; align-items: flex-start; gap: 12px; }
   .header-stats { gap: 14px; flex-wrap: wrap; }
   .hstat-val { font-size: 20px; }
   .reload-btn { font-size: 10px; }
 
   /* Rubros */
   .rubros-grid { grid-template-columns: 1fr !important; }
-  .rubro-card { padding: 20px 16px; }
+  .rubro-card { padding: 20px 18px; }
+  .rubro-name { font-size: 22px; }
+  .rubro-features li { font-size: 13px; }
+
+  /* Features (Qué incluye) */
+  .feature-title { font-size: 16px !important; font-weight: 700 !important; }
+  .feature-desc  { font-size: 13px !important; line-height: 1.65 !important; }
+  .feature-num   { font-size: 26px; }
+
+  /* Extras / servicios adicionales */
+  #extras-grid { grid-template-columns: 1fr !important; }
+  .extra-title { font-size: 16px; }
+  .extra-desc  { font-size: 13px; line-height: 1.6; }
+  .extra-tag   { font-size: 10px; }
 
   /* 3 pasos */
   #pasos-grid > div { padding: 0 8px !important; width: 100%; }
@@ -826,23 +848,35 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   .compare-table { min-width: 300px; font-size: 11px; }
   .compare-table th, .compare-table td { padding: 9px 8px; }
 
+  /* 3 pasos */
+  #pasos-grid > div p,
+  #pasos-grid > div div[style*="font-size:12px"] { font-size: 14px !important; line-height: 1.65 !important; }
+  #pasos-grid > div div[style*="font-size:14px"] { font-size: 16px !important; font-weight: 700 !important; }
+
   /* FAQ */
-  .faq-item summary { font-size: 13px; padding: 16px 0; }
-  .faq-body { font-size: 12px; }
+  .faq-item summary { font-size: 15px !important; padding: 18px 0; font-weight: 600; }
+  .faq-body { font-size: 14px !important; line-height: 1.7 !important; }
+
+  /* Comparativa */
+  .compare-table td:first-child { font-size: 13px !important; }
+  .compare-table td { font-size: 12px !important; }
 
   /* Footer CTA */
   .footer-cta { padding-top: 48px !important; padding-bottom: 48px !important; gap: 24px !important; }
-  .footer-cta-title { font-size: 22px; }
-  .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 14px 12px; font-size: 12px; }
+  .footer-cta-title { font-size: 26px !important; line-height: 1.1; }
+  .footer-cta-sub { font-size: 14px !important; }
+  .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 16px 12px; font-size: 14px; }
   .cta-box { align-items: stretch; width: 100%; }
   .footer-bar { flex-direction: column !important; gap: 8px; }
-  .footer-contact { text-align: center; }
+  .footer-contact { text-align: center; font-size: 11px !important; line-height: 1.8; }
   .footer-brand { font-size: 13px; }
 
   /* Anclaje de valor */
   div[style*="margin-top:28px;padding:20px 28px"] {
-    flex-direction: column !important; padding: 16px !important;
+    flex-direction: column !important; padding: 18px 20px !important;
   }
+  div[style*="margin-top:28px;padding:20px 28px"] div[style*="font-size:13px"] { font-size: 15px !important; font-weight: 700; }
+  div[style*="margin-top:28px;padding:20px 28px"] div[style*="font-size:12px"] { font-size: 13px !important; line-height: 1.7; }
 
   /* Franja rubros — centrar en móvil */
   .franja > div { justify-content: center !important; }
@@ -866,18 +900,18 @@ html, body { overflow-x: hidden; max-width: 100vw; }
       </h1>
       <p class="hero-sub animate delay2">
         Un Dashboard DataVista Interactivo diseñado a medida para tu tipo de negocio.
-        Tome decisiones informadas desde el primer día — sin suscripciones,
+        Accede desde cualquier dispositivo con tu link exclusivo — sin instalar nada,
         sin complicaciones.
       </p>
       <div class="hero-cta animate delay3">
         <div style="display:flex;flex-direction:column;gap:12px;">
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
-            <span style="font-size:13px;color:#9a9d8a;">Sin suscripciones ni servidores</span>
+            <span style="font-size:13px;color:#9a9d8a;">Acceso desde cualquier dispositivo con tu link</span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
-            <span style="font-size:13px;color:#9a9d8a;">Configurado para su propio Excel</span>
+            <span style="font-size:13px;color:#9a9d8a;">Configurado a medida para tu tipo de negocio</span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
@@ -885,7 +919,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
           </div>
           <div style="display:flex;align-items:center;gap:10px;">
             <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div>
-            <span style="font-size:13px;color:#9a9d8a;">Pago único — sin renovaciones</span>
+            <span style="font-size:13px;color:#9a9d8a;">Pago único — tu plataforma activa sin límite de tiempo</span>
           </div>
         </div>
       </div>
@@ -894,7 +928,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
     <div class="hero-bottom animate delay4">
       <div class="hero-stat">
         <span class="hero-stat-val">100%</span>
-        <span class="hero-stat-lbl">Sin suscripción</span>
+        <span class="hero-stat-lbl">Acceso web directo</span>
       </div>
       <div class="hero-stat">
         <span class="hero-stat-val">5</span>
@@ -1098,7 +1132,7 @@ html, body { overflow-x: hidden; max-width: 100vw; }
       <div>
         <div style="font-size:13px;font-weight:700;color:#f0ece2;margin-bottom:5px;">En palabras simples:</div>
         <div style="font-size:13px;color:#7a7d8a;line-height:1.7;">
-          Un <strong style="color:#f0ece2;">DataVista</strong> es como tu Excel — pero que <strong style="color:var(--gold);">se lee solo, te muestra gráficos al instante y te deja buscar cualquier producto en segundos.</strong> Sin aprender nada nuevo. Sin instalar nada. Abres el archivo y listo.
+          Un <strong style="color:#f0ece2;">DataVista</strong> es como tu Excel — pero que <strong style="color:var(--gold);">se lee solo, te muestra gráficos al instante y te deja buscar cualquier producto en segundos.</strong> Sin aprender nada nuevo. Sin instalar nada. Entras a tu link y listo.
         </div>
       </div>
     </div>
@@ -1728,7 +1762,7 @@ function renderDemoTable() {
         <span style="font-family:var(--ff-display);font-size:28px;font-weight:900;color:var(--gold);font-style:italic;">1</span>
       </div>
       <div style="font-size:14px;font-weight:700;margin-bottom:10px;letter-spacing:0.02em;">Me compartes tu lista</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Tu Excel, planilla o archivo de productos — en el formato que tengas. Sin preparación previa.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Tu Excel, planilla o archivo de productos — en el formato que tengas. Nos lo envías por WhatsApp o correo, sin preparación previa.</div>
     </div>
     <div style="text-align:center;padding:0 28px;position:relative;">
       <div style="width:72px;height:72px;border-radius:50%;background:var(--gold);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;z-index:1;box-shadow:0 8px 32px rgba(200,150,42,0.3);">
@@ -1742,7 +1776,7 @@ function renderDemoTable() {
         <span style="font-family:var(--ff-display);font-size:28px;font-weight:900;color:var(--gold);font-style:italic;">3</span>
       </div>
       <div style="font-size:14px;font-weight:700;margin-bottom:10px;letter-spacing:0.02em;">Lo usas desde el día 1</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Sin instalaciones ni capacitaciones largas. Abres el archivo, arrastras tu Excel y listo.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">Sin instalaciones ni capacitaciones largas. Entras a tu link, arrastras tu Excel y listo. Solo necesitas conexión a internet.</div>
     </div>
   </div>
 </section>
@@ -1759,15 +1793,15 @@ function renderDemoTable() {
       <div class="feature-item">
         <div class="feature-num">01</div>
         <div>
-          <div class="feature-title">Archivo HTML autónomo</div>
-          <div class="feature-desc">Un único archivo que funciona en cualquier computador con navegador. No requiere instalación ni configuración. Lo abres y funciona al instante.</div>
+          <div class="feature-title">Tu propia plataforma en la web</div>
+          <div class="feature-desc">Recibes una URL exclusiva en <strong style="color:#c8962a">datavista-cloud.github.io/tu-empresa</strong>. Ábrela desde cualquier navegador, en el computador, tablet o celular. Sin instalar nada, sin guardar archivos.</div>
         </div>
       </div>
       <div class="feature-item">
         <div class="feature-num">02</div>
         <div>
           <div class="feature-title">Carga desde tu propio Excel</div>
-          <div class="feature-desc">Arrastra tu planilla Excel (maestra de productos, inventario, catálogo) y el dashboard procesa todo al instante. Tus datos nunca salen de tu equipo.</div>
+          <div class="feature-desc">Arrastra tu planilla Excel (maestra de productos, inventario, catálogo) directamente en la plataforma y el dashboard procesa todo al instante. Tus datos no se guardan en ningún servidor externo.</div>
         </div>
       </div>
       <div class="feature-item">
@@ -1824,15 +1858,15 @@ function renderDemoTable() {
         <div style="background:#1a1d2a;border-radius:6px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
           <span style="font-size:20px">🔒</span>
           <div>
-            <div style="font-size:12px;font-weight:700;color:#e8e4d8;margin-bottom:3px">Privacidad total</div>
-            <div style="font-size:11px;color:#5a5d70;line-height:1.5">Tus datos nunca salen de tu computador. Nadie externo puede verlos.</div>
+            <div style="font-size:12px;font-weight:700;color:#e8e4d8;margin-bottom:3px">Tus datos, en tu dispositivo</div>
+            <div style="font-size:11px;color:#5a5d70;line-height:1.5">El Excel se procesa en tu navegador. Nada se sube a ningún servidor. La plataforma solo muestra lo que tú cargas.</div>
           </div>
         </div>
         <div style="background:#1a1d2a;border-radius:6px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
           <span style="font-size:20px">⚡</span>
           <div>
-            <div style="font-size:12px;font-weight:700;color:#e8e4d8;margin-bottom:3px">Funciona offline</div>
-            <div style="font-size:11px;color:#5a5d70;line-height:1.5">Sin internet, sin suscripciones mensuales. Paga una vez y úsalo para siempre.</div>
+            <div style="font-size:12px;font-weight:700;color:#e8e4d8;margin-bottom:3px">Siempre en la última versión</div>
+            <div style="font-size:11px;color:#5a5d70;line-height:1.5">Cuando nos envías un Excel actualizado, subimos los cambios y tu plataforma los refleja de inmediato. Sin reinstalar nada, sin esperar despachos.</div>
           </div>
         </div>
         <div style="background:#1a1d2a;border-radius:6px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
@@ -1861,7 +1895,7 @@ function renderDemoTable() {
       <div style="padding:28px 32px;display:flex;align-items:flex-end;">
         <div>
           <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Elige tu plan</div>
-          <div style="font-size:13px;color:var(--muted);line-height:1.5;max-width:220px;">Ambos incluyen pago único, sin suscripciones ni sorpresas.</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.5;max-width:220px;">Ambos incluyen pago único, tu plataforma web activa sin mensualidades ni sorpresas.</div>
         </div>
       </div>
 
@@ -1890,7 +1924,7 @@ function renderDemoTable() {
     <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;border-top:1px solid var(--line);">
       <div style="padding:20px 32px;display:flex;align-items:center;">
         <div style="font-size:11px;color:var(--muted);line-height:1.6;">
-          💡 <strong>Sin letra chica:</strong> El archivo es suyo para siempre. Sin vencimiento. Lo usas cuando quieras.
+          💡 <strong>Sin letra chica:</strong> Tu plataforma queda activa para siempre. Sin vencimiento. Sin mensualidades.
         </div>
       </div>
       <div style="padding:20px 24px;border-left:1px solid var(--line);background:var(--paper2);display:flex;align-items:center;justify-content:center;">
@@ -1971,7 +2005,7 @@ function renderDemoTable() {
             </div>
           </div>
           <div style="padding:14px 16px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;font-size:11px;color:var(--muted);line-height:1.6;">
-            💡 <strong>Sin letra chica:</strong> El archivo es tuyo para siempre. Sin vencimiento. Lo usas cuando quieras.
+            💡 <strong>Sin letra chica:</strong> Tu plataforma queda activa para siempre. Sin vencimiento. Sin mensualidades.
           </div>
         </div>`;
     };
@@ -2013,12 +2047,57 @@ function renderDemoTable() {
   })();
   </script>
 
+  <!-- Servicios adicionales / mantención -->
+  <div style="margin-top:48px;">
+    <div class="section-label" style="margin-bottom:18px;">Servicios adicionales</div>
+    <h3 style="font-family:var(--ff-display);font-size:clamp(20px,2.2vw,30px);font-weight:900;letter-spacing:-0.02em;margin-bottom:8px;">¿Necesitas más después?<br><em style="color:var(--gold)">Lo tenemos cubierto.</em></h3>
+    <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:28px;max-width:520px;">Si tu Excel cambia o quieres ampliar tu DataVista, estos servicios están disponibles bajo demanda — nos envías el archivo actualizado y lo subimos sin necesidad de contratar un plan nuevo.</p>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;" id="extras-grid">
+      <div class="extra-card">
+        <div class="extra-tag">Mantención</div>
+        <div class="extra-title">Actualización de estructura</div>
+        <div class="extra-desc">¿Cambiaste columnas o reorganizaste tu Excel? Nos envías el archivo actualizado, adaptamos la plataforma a la nueva estructura y queda listo.</div>
+        <div style="margin-top:14px;display:flex;align-items:baseline;gap:6px;">
+          <span style="font-family:var(--ff-display);font-size:26px;font-weight:900;color:var(--gold);">$25.000</span>
+          <span style="font-family:var(--ff-mono);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;">por actualización</span>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-tag">Expansión</div>
+        <div class="extra-title">Nueva sección analítica</div>
+        <div class="extra-desc">Agrega una pestaña o módulo nuevo a tu DataVista existente: comparativas, proveedores, historial de precios, etc.</div>
+        <div style="margin-top:14px;display:flex;align-items:baseline;gap:6px;">
+          <span style="font-family:var(--ff-display);font-size:26px;font-weight:900;color:var(--gold);">$35.000</span>
+          <span style="font-family:var(--ff-mono);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;">por sección</span>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-tag">Soporte extendido</div>
+        <div class="extra-title">Plan de soporte anual</div>
+        <div class="extra-desc">Incluye hasta 4 ajustes menores al año, respuesta prioritaria por WhatsApp y una actualización de estructura sin costo.</div>
+        <div style="margin-top:14px;display:flex;align-items:baseline;gap:6px;">
+          <span style="font-family:var(--ff-display);font-size:26px;font-weight:900;color:var(--gold);">$60.000</span>
+          <span style="font-family:var(--ff-mono);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;">por año</span>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-tag">Personalización</div>
+        <div class="extra-title">Rediseño de marca</div>
+        <div class="extra-desc">Actualizamos colores, tipografías y logo si tu identidad visual ha cambiado. Tu DataVista queda alineado con tu imagen actual.</div>
+        <div style="margin-top:14px;display:flex;align-items:baseline;gap:6px;">
+          <span style="font-family:var(--ff-display);font-size:26px;font-weight:900;color:var(--gold);">$20.000</span>
+          <span style="font-family:var(--ff-mono);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;">por rediseño</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Anclaje de valor -->
   <div style="margin-top:28px;padding:20px 28px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
     <div style="font-size:22px">💬</div>
     <div>
       <div style="font-size:13px;font-weight:700;margin-bottom:3px;">¿Te parece mucho? Haz la comparación.</div>
-      <div style="font-size:12px;color:var(--muted);line-height:1.6;">Un software de gestión genérico cuesta entre $30.000 y $150.000 <em>al mes</em>. Tu DataVista se paga una sola vez y no expira. En 2 meses ya amortizaste la inversión.</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;">Un software de gestión genérico cuesta entre $30.000 y $150.000 <em>al mes</em>. Tu DataVista se paga una sola vez, queda activo en tu URL para siempre y no tiene fecha de vencimiento. En 2 meses ya amortizaste la inversión.</div>
     </div>
   </div>
 
@@ -2060,14 +2139,14 @@ function renderDemoTable() {
           <td><span class="cross">✗</span> Hay que contar o usar fórmulas</td>
         </tr>
         <tr>
-          <td>Usarlo sin saber de computadores</td>
-          <td class="ours"><span class="check">✓</span> Sí, muy fácil</td>
-          <td><span class="cross">✗</span> Requiere conocimiento previo</td>
+          <td>Acceder desde el celular o tablet</td>
+          <td class="ours"><span class="check">✓</span> Sí, desde cualquier dispositivo</td>
+          <td><span class="cross">✗</span> Archivo pensado para computador</td>
         </tr>
         <tr>
-          <td>Funciona sin internet</td>
-          <td class="ours"><span class="check">✓</span> Sí, 100% offline</td>
-          <td><span class="check">✓</span> Sí</td>
+          <td>Funciona desde el celular</td>
+          <td class="ours"><span class="check">✓</span> Sí, desde cualquier dispositivo</td>
+          <td><span class="cross">✗</span> Limitado, depende del archivo</td>
         </tr>
         <tr>
           <td>Pago mensual o suscripción</td>
@@ -2111,27 +2190,32 @@ function renderDemoTable() {
 
     <details class="faq-item">
       <summary>¿Necesito instalar algo en mi computador?</summary>
-      <div class="faq-body">No. El DataVista es un archivo que abres directo con tu navegador (Chrome, Edge o cualquier otro). Nada que instalar, nada que configurar. Haces doble clic y funciona.</div>
+      <div class="faq-body">No. Tu DataVista es una página web a la que accedes con cualquier navegador (Chrome, Edge, Safari, el que uses). Nada que instalar, nada que guardar. Entras a tu link y funciona al instante.</div>
     </details>
 
     <details class="faq-item">
-      <summary>¿Funciona en Mac y Windows?</summary>
-      <div class="faq-body">Sí, en ambos sistemas operativos sin diferencia. Mientras tengas un navegador actualizado, el DataVista funciona exactamente igual.</div>
+      <summary>¿Funciona en Mac, Windows y celular?</summary>
+      <div class="faq-body">Sí, en cualquier dispositivo con navegador: computador Mac o Windows, tablet o celular. Tu DataVista es una página web, así que se abre igual en Chrome, Safari o Edge sin ninguna diferencia. Sí requiere conexión a internet.</div>
     </details>
 
     <details class="faq-item">
       <summary>¿Qué pasa si mi Excel cambia de estructura?</summary>
-      <div class="faq-body">Si agregas o cambias columnas en tu planilla, podemos actualizar el DataVista por un costo adicional de $25.000. Cambios menores dentro del primer mes de soporte están incluidos sin costo.</div>
+      <div class="faq-body">Nos envías el Excel actualizado por WhatsApp o correo, subimos los cambios a tu plataforma y en pocas horas ya ves todo reflejado. Cambios menores dentro del primer mes de soporte están incluidos sin costo extra.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>¿Cómo es la URL que recibo?</summary>
+      <div class="faq-body">Tu plataforma queda alojada en una dirección del tipo <strong>datavista-cloud.github.io/nombre-de-tu-empresa</strong>. Es una URL limpia y directa que puedes guardar en favoritos, compartir con tu equipo o abrir desde el celular cuando quieras.</div>
     </details>
 
     <details class="faq-item">
       <summary>¿Mis productos quedan guardados en algún lugar externo?</summary>
-      <div class="faq-body">No. Todo queda en tu computador. Nadie más puede ver tu lista de productos — ni nosotros. Cada vez que abres el DataVista simplemente arrastras tu Excel y listo.</div>
+      <div class="faq-body">No. Tu Excel se procesa directamente en tu navegador — nunca se sube a ningún servidor ni base de datos. La plataforma solo usa el archivo para mostrar los datos en pantalla. Nadie más puede verlos, ni nosotros.</div>
     </details>
 
     <details class="faq-item" style="border-bottom:none;">
       <summary>¿Cuánto tarda la entrega?</summary>
-      <div class="faq-body">Entre 5 y 7 días hábiles desde que nos compartes tu archivo Excel. Ese tiempo incluye la configuración, adaptación a tu rubro y pruebas de funcionamiento con tus propios datos.</div>
+      <div class="faq-body">Entre 5 y 7 días hábiles desde que nos compartes tu archivo Excel. Ese tiempo incluye la configuración, adaptación a tu rubro y pruebas. Al finalizar te entregamos tu URL lista para usar — no hay nada que descargar ni instalar.</div>
     </details>
 
   </div>
@@ -2155,7 +2239,7 @@ function renderDemoTable() {
 <div class="footer-bar">
   <div class="footer-brand" style="line-height:1;"><img src="data:image/webp;base64,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" width="160" height="62" alt="DataVista" style="max-width:100%;height:auto;display:block;"></div>
   <div class="footer-contact">
-    Dashboards analíticos a medida · Pago único<br>
+    Plataformas analíticas web a medida · Pago único<br>
     WhatsApp: +56 9 7952 7762
   </div>
 </div>
